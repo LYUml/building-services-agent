@@ -569,7 +569,7 @@ def validate_plan(path):
             inputs.add(Path(fds_temperature.__file__).resolve())
         if kind=='ifc_port_gap_review':
             import math
-            if set(t)-{'id','kind','source','baseline','tolerance_m','max_port_shift_m','alignment','requires_pass','description'}:
+            if set(t)-{'id','kind','source','baseline','tolerance_m','max_port_shift_m','alignment','export_bcf','requires_pass','description'}:
                 raise ProjectError('IFC port gap review requires a saved IFC and a declared tolerance')
             tolerance=t.get('tolerance_m')
             if type(tolerance) not in (int,float) or not math.isfinite(tolerance) or tolerance<=0:
@@ -586,6 +586,10 @@ def validate_plan(path):
                 if 'baseline' not in t or type(shift) not in (int,float) or not math.isfinite(shift) or shift<=0:
                     raise ProjectError('IFC port shift limit requires a baseline and a positive finite value in metres')
             inputs.add(Path(__file__).with_name('ifc_port_inventory.py'))
+            if 'export_bcf' in t and type(t['export_bcf']) is not bool:
+                raise ProjectError('IFC port BCF export requires a Boolean flag')
+            if t.get('export_bcf'):
+                inputs.add(Path(__file__).with_name('ifc_port_bcf.py'))
         if kind=='revit_inventory_check':
             if set(t)-{'id','kind','inventory','model','tolerance_m','requires_pass','description','expected_connections'}:
                 raise ProjectError('Revit check requires explicit saved inventory/model and tolerance')
@@ -1608,9 +1612,13 @@ def execute(plan,out,energyplus=None,autocad=None,radiance_bin=None,ifcmcp_pytho
                 from .ifc_port_inventory import inventory as ifc_port_inventory, review_status as ifc_review_status
                 baseline=local_path(root,t['baseline']) if 'baseline' in t else None
                 alignment=local_path(root,t['alignment']) if 'alignment' in t else None
-                payload=ifc_port_inventory(local_path(root,t['source']),t['tolerance_m'],baseline=baseline,
+                ifc_path=local_path(root,t['source'])
+                payload=ifc_port_inventory(ifc_path,t['tolerance_m'],baseline=baseline,
                                            max_port_shift_m=t.get('max_port_shift_m'),alignment=alignment)
                 folder.mkdir()
+                if t.get('export_bcf'):
+                    from .ifc_port_bcf import write as write_port_bcf
+                    payload['bcf']=write_port_bcf(payload,ifc_path,folder/'port-issues.bcf')
                 (folder/'port-review.json').write_text(json.dumps(payload,indent=2),encoding='utf-8')
                 status,reason=ifc_review_status(payload)
             elif t['kind']=='revit_inventory_check':
@@ -2589,9 +2597,16 @@ def verify(run_directory):
                     checked=ifc_port_inventory(source,original['tolerance_m'],baseline=baseline,
                                                max_port_shift_m=original.get('max_port_shift_m'),alignment=alignment)
                     expected,_=ifc_review_status(checked)
+                    if original.get('export_bcf'):
+                        from .ifc_port_bcf import verify as verify_port_bcf
+                        archive=receipt.parent/'port-issues.bcf'
+                        if (not archive.resolve().is_relative_to(root)
+                                or archive.relative_to(root).as_posix() not in report['artifact_hashes']):
+                            raise ProjectError('IFC port BCF evidence lacks workflow artifact pins')
+                        checked['bcf']=verify_port_bcf(checked,archive)
                     if checked!=read_json(receipt) or expected!=task['status']:
                         raise ProjectError('IFC port review differs from reconstructed evidence')
-                except (OSError,ValueError,KeyError,TypeError) as exc:
+                except (OSError,ValueError,KeyError,TypeError,ImportError) as exc:
                     issues.append('IFC port gap evidence invalid: '+name+': '+str(exc))
         if task['kind'] in ('fds_temperature_probe','fds_temperature_review'):
             receipt=root/name/('report.json' if task['kind']=='fds_temperature_probe' else 'probe-review.json')

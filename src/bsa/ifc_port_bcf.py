@@ -1,8 +1,10 @@
 """Write an offline BCF issue package for IFC port coordination findings."""
+from collections import Counter
 import importlib.metadata
 from pathlib import Path
 import shutil
 from tempfile import TemporaryDirectory
+from zipfile import BadZipFile
 
 from . import workspace
 from .ifc_port_inventory import inventory
@@ -30,7 +32,34 @@ def issue_records(report):
         yield f"IFC port ownership conflict {guid}", description, selected, port['origin_m']
 
 
-def run(source, out, tolerance_m):
+def verify(report, archive):
+    from bcf.v3.bcfxml import BcfXml
+    if importlib.metadata.version('bcf-client') != '0.9.0':
+        raise ValueError('Pinned bcf-client 0.9.0 required')
+    expected = Counter()
+    before = file_hash(archive)
+    for title, description, selected, point in issue_records(report):
+        view_selection = tuple(selected) if point is not None else ()
+        expected[title, description, view_selection, int(bool(view_selection)), 'Open'] += 1
+    try:
+        with BcfXml.load(archive) as restored:
+            actual = Counter()
+            for topic in restored.topics.values():
+                selections = [component.ifc_guid for handler in topic.viewpoints.values()
+                              for component in handler.visualization_info.components.selection.component]
+                actual[topic.topic.title, topic.topic.description, tuple(sorted(selections)),
+                       len(topic.viewpoints), topic.topic.topic_status] += 1
+    except (AttributeError, BadZipFile) as exc:
+        raise ValueError('Invalid IFC port coordination BCF archive') from exc
+    if actual != expected or file_hash(archive) != before:
+        raise ValueError('Saved BCF topics differ from the IFC coordination issues')
+    return dict(source_sha256=report['source_sha256'], bcf_sha256=before,
+                topics=sum(actual.values()),
+                unavailable_relationships=len(report['connection_gaps']['unavailable_relationships']),
+                bcf_reopen_verified=True, design_accepted=False)
+
+
+def write(report, source, out):
     from bcf.v3.bcfxml import BcfXml
     from bcf.v3.visinfo import VisualizationInfoHandler
     import numpy as np
@@ -40,37 +69,29 @@ def run(source, out, tolerance_m):
         raise ValueError('Use a fresh BCF archive path in the permitted output workspace')
     if importlib.metadata.version('bcf-client') != '0.9.0':
         raise ValueError('Pinned bcf-client 0.9.0 required')
-    if tolerance_m is None:
-        raise ValueError('Explicit metre tolerance required for IFC port gap issues')
-
-    report = inventory(source, tolerance_m)
-    gaps = report['connection_gaps']
     project = BcfXml.create_new('IFC port coordination review')
-    expected = {}
     for title, description, selected, point in issue_records(report):
         topic = project.add_topic(title, description, 'Building Services Agent', 'Issue', 'Open')
         if selected and point is not None:
             viewpoint = VisualizationInfoHandler.create_from_point_and_guids(np.asarray(point), *selected)
             topic.add_visinfo_handler(viewpoint)
-        expected[topic.topic.guid] = (title, description, selected if point is not None else [])
 
     out.parent.mkdir(parents=True, exist_ok=True)
     with TemporaryDirectory(dir=out.parent) as temporary:
         archive = Path(temporary)/'review.bcf'
         project.save(archive)
-        with BcfXml.load(archive) as restored:
-            actual = {}
-            for guid, topic in restored.topics.items():
-                selections = [component.ifc_guid for handler in topic.viewpoints.values()
-                              for component in handler.visualization_info.components.selection.component]
-                actual[guid] = (topic.topic.title, topic.topic.description, sorted(selections))
-            if actual != expected or any(topic.topic.topic_status != 'Open' for topic in restored.topics.values()):
-                raise ValueError('Saved BCF topics differ from the IFC coordination issues')
+        checked = verify(report, archive)
         if file_hash(source) != report['source_sha256']:
             raise ValueError('IFC changed before BCF publication')
         with archive.open('rb') as stream, out.open('xb') as target:
             shutil.copyfileobj(stream, target)
 
-    return dict(source_sha256=report['source_sha256'], bcf_sha256=file_hash(out),
-                topics=len(expected), unavailable_relationships=len(gaps['unavailable_relationships']),
-                bcf_reopen_verified=True, design_accepted=False)
+    if file_hash(out) != checked['bcf_sha256']:
+        raise ValueError('Published BCF differs from the verified archive')
+    return checked
+
+
+def run(source, out, tolerance_m):
+    if tolerance_m is None:
+        raise ValueError('Explicit metre tolerance required for IFC port gap issues')
+    return write(inventory(source, tolerance_m), source, out)

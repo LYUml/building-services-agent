@@ -133,6 +133,14 @@ removed, the topic and its evidence still reopened without a viewpoint.
 Unavailable relationships are counted separately. External viewer import and
 model repair remain untested.
 
+Set `export_bcf: true` on an `ifc_port_gap_review` task to retain
+`port-issues.bcf` alongside `port-review.json`. The workflow verification
+reconstructs the expected topics and selections from the saved IFC. CLI and
+MCP workflow runs recorded the 20 mm gap as a failed check with a readable
+BCF handoff. Replacing it with an unrelated empty archive and refreshing
+its hashes still failed verification. This export covers origin gaps and
+owner conflicts, so a baseline comparison failure can have zero BCF topics.
+
 Each port now retains the exact attachment relationship's GUID, class and
 owner claim. When the coordinate review is requested, conflicting claims on
 linked ports fail the combined review. Missing supported owner evidence keeps
