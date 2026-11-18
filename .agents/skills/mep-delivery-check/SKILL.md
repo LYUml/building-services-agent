@@ -1,9 +1,55 @@
 ---
 name: mep-delivery-check
-description: Audit building services models, drawings, calculations and reports against source requirements before delivery, preserving unresolved engineering and visual checks.
+description: Audit building services models, drawings, calculations and reports before delivery, including missing, incorrect or displaced connections after layout changes.
 ---
 
 # mep-delivery-check
+
+## Verify connections and placement after a layout change
+
+Use this review for suspected gaps, wrong connections, misplaced equipment or
+revised routing. Bind the adopted source layout, equipment and port identities,
+expected connections and final artifact revision first. Record drawing units and
+coordinate transforms. Keep intentional open ends, schematic continuations and
+cross-sheet pairs explicit. If the expected relationship or position lacks a
+source, leave that check unresolved.
+
+1. **Check identity and topology.** Extract the actual pairs from the saved
+   artifact, then compare with the expected pairs by stable identity. Flag
+   missing, extra, duplicate and wrong-peer connections, including across sheets.
+   Counts and total flows can agree after a wrong-peer swap. A crossing or
+   visually touching line does not establish either endpoint's identity.
+2. **Check geometry and placement.** Compare each changed component's position
+   and orientation with the adopted source and check both ends of each affected
+   connection. Measure endpoint displacement in common coordinates. For a
+   physical IFC joint, check port ownership, world positions, opposing frames,
+   profile dimensions and material contact wherever the supported method covers
+   them. For grid-aligned equipment, use the adopted ceiling grid and compare
+   each saved symbol centre with its assigned eligible tile centre. Check tile
+   eligibility and footprint against the layout requirements where specified.
+   Recheck the connection at the new centre or specified port. Keep clearance
+   findings separate. Record the comparison tolerance and
+   its basis. A numeric matching tolerance is not a construction allowance.
+3. **Check the revision as delivered.** Re-read the saved IFC and the DXF
+   exported from the actual reopened DWG. Use the supported independent checks
+   below, then inspect the actual plot for ambiguous crossings, gaps and
+   continuation labels. Record evidence tied to the exact source and artifact
+   hashes. Reconcile schedules and calculations affected by the move, including
+   route lengths or fitting geometry even if flows and topology are unchanged.
+   Compare expected edits and affected neighbors with the previous verified
+   revision to detect unintended moves or lost links.
+
+For supported planar VAV layouts, prefer the inherited native-export check in
+docs/AIR_TERMINAL_DRAWING.md. For supported physical IFC joints use
+docs/INTERFACE_CONTACTS.md. For system sheets spanning multiple pages see
+docs/CURRENT_SYSTEM_DRAWINGS.md for source-pair and cross-sheet reconciliation.
+These routes cover different aspects of the review. For unsupported geometry,
+record the coverage gap and any individually verified observations.
+
+Make failures locatable. Record the sheet/view, component or port IDs, expected
+and observed peer or coordinates, measured difference where applicable, and
+artifact evidence. Keep untested interfaces and failed checks open in the
+delivery review. A successful repair requires a fresh check of the saved result.
 
 For an existing verified native HVAC workflow, use bsa.vav_schedule run/verify
 per docs/VAV_SCHEDULE.md to deliver a bounded group connection table. Reconstruct
