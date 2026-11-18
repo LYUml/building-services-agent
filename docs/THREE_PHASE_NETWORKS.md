@@ -89,3 +89,10 @@ sheet showed continuous lines at those contacts and legible phase rows.
 The reviewed PDF SHA-256 is
 `a7cb5ec76471660cd398518a905c0e8da0ded6739026abc2a19784209eb3de34`.
 The one-point layout limit is a paper-space geometry allowance only.
+
+The drawing receipt now records `dxf_bus_contacts` for the saved schematic
+and `native.bus_contacts` when AutoCAD reopens the DWG. Each lists the
+circuit ID, expected bus pair, and measured gaps in drawing millimetres.
+A fresh paired replay after `afbb350` produced identical contact records
+from both files, with zero gaps at all four declared contacts. Circuit
+continuity and unintended bus crossings are checked in both paths.
