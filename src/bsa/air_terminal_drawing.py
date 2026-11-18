@@ -107,6 +107,8 @@ def inspect(doc, allocation, tree, binding, layers):
         circle = take(pools['vav'],lambda e:tuple(e.dxf.extrusion)==(0.,0.,1.) and near(point(e.dxf.center),start),
                       f"VAV {leaf} at {start} m on {layers['vav']}", target=start,
                       center_of=lambda e:point(e.dxf.center) if tuple(e.dxf.extrusion)==(0.,0.,1.) else None)
+        if not math.isfinite(circle.dxf.radius) or circle.dxf.radius <= 0:
+            raise ValueError(f"VAV {leaf} (handle {circle.dxf.handle}) has an invalid symbol radius")
         saved_vav = point(circle.dxf.center)
         for section_id, handle, saved_endpoint in node_sections[leaf]:
             if not near(saved_endpoint, saved_vav):
@@ -147,6 +149,9 @@ def inspect(doc, allocation, tree, binding, layers):
                 raise ValueError(f'{error}; saved lines at terminal {tid}: {details}{hint}') from error
             if near(start,end):raise ValueError('Zero-length terminal connection')
             saved_start, saved_end = flex_ends[line.dxf.handle]
+            if near(saved_start, saved_end):
+                raise ValueError(f"Flex handle {line.dxf.handle} for VAV {leaf} to terminal {tid} "
+                                 "has no distinct saved endpoints")
             if not (near(saved_start, start) and near(saved_end, end)):
                 saved_start, saved_end = saved_end, saved_start
             for peer, handle, actual, symbol in (

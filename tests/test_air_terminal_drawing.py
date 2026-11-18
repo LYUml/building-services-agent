@@ -75,6 +75,22 @@ class TerminalDrawingTests(unittest.TestCase):
                 self.assertEqual(new[key][0] - old[key][0], shift)
                 self.assertEqual(new[key][1:], old[key][1:])
 
+    def test_collapsed_flex_with_endpoints_within_matching_tolerance_is_rejected(self):
+        x = 1 + 1.5e-8
+        self.allocation['terminals'][0]['center_m'] = [x, 1]
+        terminal = self.doc.modelspace().query('LWPOLYLINE')[0]
+        terminal.set_points([(x-.1, .9), (x+.1, .9), (x+.1, 1.1), (x-.1, 1.1)], format='xy')
+        flex = self.doc.modelspace().query('LINE[layer=="flex"]')[0]
+        flex.dxf.start = flex.dxf.end = (1 + 0.75e-8, 1, 0)
+        with self.assertRaisesRegex(ValueError, 'VAV VA to terminal TA has no distinct saved endpoints'):
+            self.check()
+
+    def test_zero_radius_vav_symbol_is_rejected(self):
+        circle = self.doc.modelspace().query('CIRCLE')[0]
+        circle.dxf.radius = 0
+        with self.assertRaisesRegex(ValueError, 'VAV VA .*invalid symbol radius'):
+            self.check()
+
     def test_disconnected_rigid_node_reports_both_sections_and_gap(self):
         first, second = self.doc.modelspace().query('LINE[layer=="duct"]')
         second.dxf.start = (0.25, 0, 0)
