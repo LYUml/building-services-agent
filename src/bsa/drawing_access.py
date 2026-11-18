@@ -120,8 +120,15 @@ def inspect_revision_readback(project, out, report):
         raise ValueError('Independent readback report must be outside the immutable revision')
     if engine(project) is not drawing_revision:
         raise ValueError('Independent revision readback requires a drawing revision recipe')
+    receipt = out / 'revision-result.json'
+    receipt_bytes = receipt.read_bytes()
     verified = drawing_revision.verify(project, out)
-    readback = dwg_readback.run(out / 'Revised Drawing.dwg', report, out / 'reopened/source-export.dxf')
+    if receipt.read_bytes() != receipt_bytes:
+        raise ValueError('Drawing revision receipt changed during verification')
+    dwg_hash = next(row['sha256'] for row in verified['artifacts'] if row['path'] == 'Revised Drawing.dwg')
+    dxf_hash = json.loads(receipt_bytes)['artifacts']['reopened/source-export.dxf']
+    readback = dwg_readback.run(out / 'Revised Drawing.dwg', report, out / 'reopened/source-export.dxf',
+                               expected_hashes=(dwg_hash, dxf_hash))
     return dict(**verified, independent_readback=readback)
 
 

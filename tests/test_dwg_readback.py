@@ -11,6 +11,7 @@ import unittest
 import ezdxf
 
 from bsa.source_refs import file_hash
+from bsa.dwg_readback import run
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -98,3 +99,7 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
                 dict(handle=handle, reason='geometry_differs') for handle in sorted((line.dxf.handle, insert.dxf.handle))
             ])
+            stale_report = output / 'stale.json'
+            with self.assertRaisesRegex(ValueError, 'differs from the verified revision artifact hashes'):
+                run(source, stale_report, changed_dxf, expected_hashes=(original, file_hash(reference)))
+            self.assertFalse(stale_report.exists())

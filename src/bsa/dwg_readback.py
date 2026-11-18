@@ -84,7 +84,7 @@ def host_file(name):
     return path.resolve()
 
 
-def run(source, out, reference_dxf=None):
+def run(source, out, reference_dxf=None, *, expected_hashes=None):
     source, out = (Path(path).resolve() for path in (source, out))
     if not workspace.allowed(source) or not source.is_file() or source.suffix.lower() != '.dwg':
         raise ValueError('Select an existing DWG in the permitted workspace')
@@ -95,9 +95,12 @@ def run(source, out, reference_dxf=None):
                                   or reference.suffix.lower() != '.dxf'):
         raise ValueError('Select an existing DXF reference in the permitted workspace')
     reference_hash = file_hash(reference) if reference is not None else None
+    source_hash = file_hash(source)
+    if expected_hashes is not None and (source_hash, reference_hash) != expected_hashes:
+        raise ValueError('DWG or DXF differs from the verified revision artifact hashes')
     dotnet = host_file('BSA_ACADSHARP_DOTNET')
     worker = host_file('BSA_ACADSHARP_WORKER')
-    source_hash, worker_hash = file_hash(source), file_hash(worker)
+    worker_hash = file_hash(worker)
     completed = subprocess.run([str(dotnet), str(worker), str(source)], cwd=worker.parent,
                                capture_output=True, encoding='utf-8', timeout=120)
     if completed.returncode:
