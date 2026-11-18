@@ -1,3 +1,4 @@
+from copy import deepcopy
 import json
 import os
 from pathlib import Path
@@ -59,12 +60,30 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
         self.assertIn('report_pdf', result['stages'])
 
         from bsa.hvac_report import run as render_report
-        routes[0]['terminal_endpoint_gap_m'] = review['correspondence_tolerance_m'] / 2
-        altered_review = output.parent/'altered-terminal-review.json'
-        altered_review.write_text(json.dumps(review), encoding='utf-8')
-        with self.assertRaisesRegex(ValueError, 'Terminal review differs from saved geometry'):
-            render_report(output/'workflow', output.parent/'altered-report', terminal_review=altered_review)
-        self.assertFalse((output.parent/'altered-report').exists())
+        endpoint_fields = ('saved_vav_endpoint_m', 'saved_terminal_endpoint_m')
+        for field in ('terminal_endpoint_gap_m', *endpoint_fields):
+            with self.subTest(altered_field=field):
+                altered = deepcopy(review)
+                route = altered['groups'][0]['routes'][0]
+                if field in endpoint_fields:
+                    route[field][0] += 0.25
+                else:
+                    route[field] = review['correspondence_tolerance_m'] / 2
+                altered_review = output.parent/'altered-terminal-review.json'
+                altered_review.write_text(json.dumps(altered), encoding='utf-8')
+                with self.assertRaisesRegex(ValueError, 'Terminal review differs from saved geometry'):
+                    render_report(output/'workflow', output.parent/'altered-report', terminal_review=altered_review)
+                self.assertFalse((output.parent/'altered-report').exists())
+
+        for route in routes:
+            for field in endpoint_fields:
+                del route[field]
+        legacy_review = output.parent/'legacy-terminal-review.json'
+        legacy_review.write_text(json.dumps(review), encoding='utf-8')
+        legacy_output = output.parent/'legacy-report'
+        render_report(output/'workflow', legacy_output, terminal_review=legacy_review)
+        restored = json.loads((legacy_output/'report.json').read_bytes())
+        self.assertEqual(restored['terminal_connection_summary'], report['terminal_connection_summary'])
 
 
 class HVACProjectTests(unittest.TestCase):
