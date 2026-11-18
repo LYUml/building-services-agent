@@ -71,5 +71,9 @@ $result = [ordered]@{
     design_accepted=$false
 }
 [IO.Directory]::CreateDirectory((Split-Path -Parent $target)) | Out-Null
-$result | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $target -Encoding utf8
+$json = $result | ConvertTo-Json -Depth 6
+$bytes = [Text.Encoding]::UTF8.GetBytes($json + [Environment]::NewLine)
+$stream = [IO.File]::Open($target, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::None)
+try { $stream.Write($bytes, 0, $bytes.Length) }
+finally { $stream.Dispose() }
 Write-Output $target
