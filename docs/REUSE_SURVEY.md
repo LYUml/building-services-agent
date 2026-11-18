@@ -2951,6 +2951,15 @@ returned an error reporting no reachable Revit add-in. This verifies the
 server transport only. Check the tool catalogue on the authorized test host
 before relying on it for document lifecycle operations.
 
+In the pinned contract, `horizun_connect_mep` belongs to the `mep` pack.
+Open, save and document-session tools belong to `administration`. The
+[upstream permission model](https://github.com/HorizunGroup/horizun-revit-mcp/blob/f0384484ea994c93e16dddf9e023dc18b76cbc67/docs/security-model.md)
+requires the owner to enable `full_write` for session and file operations.
+Tool-pack selection limits exposure and does not grant that permission.
+Keep the default permission profile for the initial health and readback
+trial. Treat native connection and document lifecycle as separate host gates,
+and verify the file identity before each authorized change.
+
 ## LibreDWG and QCAD command-line evaluation
 
 - [GNU LibreDWG 0.14](https://github.com/LibreDWG/libredwg/releases/tag/0.14)
