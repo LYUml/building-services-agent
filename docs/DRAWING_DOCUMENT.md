@@ -167,8 +167,8 @@ to update an existing BSA profile. The setup writes both paths to the MCP
 server's environment table.
 `bsa doctor --mcp-config <profile.toml>` checks the paths stored in the profile
 independently of the caller's environment.
-Run `bsa doctor --dwg-readback` to check that both host paths and the adjacent
-reader library exist. Use `bsa dwg-readback` on a known fixture to verify
+Run `bsa doctor --dwg-readback` to check both host paths, the adjacent reader
+library and the worker's `.runtimeconfig.json`. Use `bsa dwg-readback` on a known fixture to verify
 worker schema compatibility and actual execution.
 Use a fresh build directory for each rebuild so an in-flight CLI, MCP or
 regression run keeps its configured binaries. The summary and report include

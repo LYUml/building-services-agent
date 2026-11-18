@@ -12,6 +12,7 @@ class LocalSetupTests(unittest.TestCase):
             root, python = self.fixture(folder)
             worker = root / 'worker.dll'
             worker.touch()
+            worker.with_suffix('.runtimeconfig.json').touch()
             (root / 'ACadSharp.dll').touch()
             with patch.object(setup.workspace, 'ROOT', root), patch.object(setup.workspace, 'project_root', return_value=None):
                 with self.assertRaisesRegex(ValueError, 'Supply both'):

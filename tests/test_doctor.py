@@ -14,7 +14,7 @@ class DoctorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
             worker, dotnet = root / 'worker.dll', root / 'dotnet.exe'
-            for path in (worker, dotnet, root / 'ACadSharp.dll'):
+            for path in (worker, dotnet, root / 'ACadSharp.dll', worker.with_suffix('.runtimeconfig.json')):
                 path.touch()
             profile = self.profile(root, [])
             with profile.open('a', encoding='utf-8') as stream:
@@ -40,6 +40,10 @@ class DoctorTests(unittest.TestCase):
                 self.assertIn('adjacent ACadSharp.dll', missing['dwg_readback']['problem'])
                 reader = root / 'ACadSharp.dll'
                 reader.touch()
+                missing_config = doctor.check(dwg_readback=True)['dwg_readback']
+                self.assertFalse(missing_config['paths_ready'])
+                self.assertIn('worker.runtimeconfig.json', missing_config['problem'])
+                worker.with_suffix('.runtimeconfig.json').touch()
                 checked = doctor.check(dwg_readback=True)['dwg_readback']
                 self.assertTrue(checked['paths_ready'])
                 self.assertEqual(checked['reader'], str(reader.resolve()))

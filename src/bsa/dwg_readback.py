@@ -117,6 +117,9 @@ def host_runtime_files(dotnet=None, worker=None):
     reader = worker.with_name('ACadSharp.dll')
     if not reader.is_file():
         raise ValueError('Build the DWG worker with its locked adjacent ACadSharp.dll')
+    runtime_config = worker.with_suffix('.runtimeconfig.json')
+    if not runtime_config.is_file():
+        raise ValueError(f'Keep {runtime_config.name} beside the DWG worker; .NET needs it to launch the DLL')
     return dotnet, worker, reader
 
 
