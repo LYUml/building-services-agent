@@ -165,3 +165,17 @@ Tests also exercise rotated tessellated geometry, coincident reverse-flow tubes,
 The synthetic two-task workflow selected/authored the circular model then checked the saved IFC. All three physical objects were loaded; no intersection or unexcepted clearance pair was found, and two intended end-face contacts were recorded with their limited exception scope. Source and task-artifact integrity verification passed. An additional real CLI overlap case returned status 2 and retained its failure report. Negative overlap/clearance/containment source IFC and numeric reports are retained under docs/evidence/ifc-clash alongside the positive workflow, runtime/licence provenance and regression log. The evidence folder is a selected subset with original run paths, not a complete portable run directory.
 
 Final local regression with AutoCAD, EnergyPlus, OCR, IFC, network, Radiance and Manifold enabled: **87 tests passed, no skips**. Optional `clash` installation and both modified skills were validated; Linux IFC/network CI is configured but no remote result for this change is claimed. Source IFC files remain unchanged. Mesh/volume tolerances, unresolved input/product/insulation fidelity, contact-exempt non-interface zones and BIM-viewer/complete engineering acceptance remain visible. The broad project goal stays active.
+
+## Isolated regression and native drawing checks
+
+The Windows Python 3.12 full-suite run at `9f28f31` collected 2,025 tests
+and finished with 1,809 passed, 216 skipped and 862 passing subtests. It used
+an isolated checkout and explicitly supplied the pandapower worker and Graphviz.
+The result applies to that commit and its selected host capabilities.
+
+The targeted run at `bcb872a` passed 91 tests and 52 subtests without skips
+with `BSA_TEST_AUTOCAD=1` and pytest unraisable warnings treated as errors.
+It covered HVAC connection fault controls and report replay, DXF source and
+schedule integration, native DWG source export, EnergyPlus setup recovery,
+saved IFC drawings, and Revit request, bundle and revision contracts. Revit
+native creation and reopening remain pending.
