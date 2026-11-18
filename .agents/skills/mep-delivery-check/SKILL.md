@@ -89,6 +89,9 @@ When a release has several review receipts, make one index for the exact
 submitted revision. Rehash the current sources, artifacts and receipts,
 then cross-check the hashes each receipt claims. Carry unresolved checks
 and observed exceptions into the index alongside the checks completed.
+If the submission is a ZIP, test the archive and rehash its actual
+members against the verified loose files. Check the expected member list
+and flag duplicate or unexpected members before relying on the archive.
 
 For every released DWG, compare the exact file hash with the native
 reopen and plot receipt. A matching schedule or PDF can confirm that
