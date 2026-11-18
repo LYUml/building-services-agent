@@ -54,13 +54,18 @@ public static partial class NativePipes
             var curve = ((LocationCurve)pipe.Location).Curve;
             if (Math.Abs(Metres(pipe.Diameter) - request.DiameterMetres) > 1e-8
                 || curve.GetEndPoint(0).DistanceTo(start) > 1e-7
-                || curve.GetEndPoint(1).DistanceTo(end) > 1e-7
-                || pipe.ConnectorManager.Connectors.Size != 2)
+                || curve.GetEndPoint(1).DistanceTo(end) > 1e-7)
                 throw new InvalidOperationException("Native pipe readback differs from request");
+            var connectors = pipe.ConnectorManager.Connectors.Cast<Connector>().ToArray();
+            if (connectors.Length != 2 || connectors.Any(connector =>
+                    connector.Domain != Domain.DomainPiping || connector.ConnectorType != ConnectorType.End)
+                || connectors.Count(connector => connector.Origin.DistanceTo(start) <= 1e-7) != 1
+                || connectors.Count(connector => connector.Origin.DistanceTo(end) <= 1e-7) != 1)
+                throw new InvalidOperationException("Native piping end connectors differ from requested endpoints");
             ElementProvenance.Attach(pipe, request);
             var result = new { unique_id = pipe.UniqueId, element_id = pipe.Id.Value.ToString(),
                 source = request.Source, diameter_m = Metres(pipe.Diameter), length_m = Metres(curve.Length),
-                connector_count = 2, saved = false, connected_system_verified = false, design_accepted = false };
+                connector_count = connectors.Length, saved = false, connected_system_verified = false, design_accepted = false };
             if (transaction.Commit() != TransactionStatus.Committed)
                 throw new InvalidOperationException("Native transaction did not commit");
             return result;
