@@ -2841,6 +2841,15 @@ reader of explicit handles and geometry alongside native reopening and plot
 review. Production dependencies are unchanged.
 [ACadSharp release](https://github.com/DomCR/ACadSharp/releases/tag/v3.8.35)
 
+A follow-up read the same saved DWG directly and compared it to its native
+AutoCAD DXF export by hexadecimal handle. All 4,609 modelspace handles,
+entity types and layers agreed. Detailed checks covered 1,111 LINE endpoint
+pairs, 422 TEXT values, insertion points and heights, and 20 CIRCLE centres
+and radii. The maximum coordinate or dimension difference was
+`2.92e-11 mm`, below the probe threshold of `1e-6 mm`. The source DWG hash
+was checked before and after. This trial leaves polyline vertex and arc
+geometry, layout content and DWG writing outside the reviewed scope.
+
 Horizun Revit MCP (Apache-2.0, inspected repository head
 `d1c94a0f7bbf5875199f2ebd1bfcc618d3049b6f`) is a candidate reference for typed
 MEP operations and connector readback. Revit.TestRunner (MIT, head
