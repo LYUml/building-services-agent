@@ -92,6 +92,12 @@ Record the matching distance and reject ambiguous matches. Recompute the
 group minimum and maximum straight lengths before comparing the displayed
 schedule. Keep the label-association distance separate from the endpoint
 matching tolerance.
+For a declared single-source rigid duct tree, match each native line
+to the verified section binding by both endpoints. Check that adjacent
+sections share the declared node, every section is used once, and all
+terminal groups are reachable from the root. Sum the unrounded released
+terminal flows upstream and compare each section with the sizing CSV.
+Identify this as a topology and flow-accounting check for the declared case.
 For a released drawing table, recover rows by the saved cell positions
 and require a unique row ID. Compare every cell to its source CSV when
 the table is small enough to exhaustively check. Reconcile corresponding
