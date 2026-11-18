@@ -141,6 +141,15 @@ private history. The accepted implementation uses the previously verified DXF
 writer path; no trust settings were changed. Independent inspection replays source
 preconditions and approved edits with exact artifact/method/source binding. It is
 not authenticated provenance or complete arbitrary object/dictionary fidelity.
+
+For an existing verified revision, `bsa drawing inspect <recipe.json> --out
+<revision-directory> --independent-report <new-report.json>` also compares
+the saved DWG with that revision's reopened DXF using the host-configured
+ACadSharp worker. The MCP equivalent is `bsa_crosscheck_drawing_revision`
+with `project`, `out` and `report`. The report must be outside the revision
+directory. The comparison checks drawing units and supported modelspace
+geometry and leaves the original receipt and plot review status intact.
+
 MTEXT, block-attribute editing, arbitrary geometry revisions, external-reference
 packaging, Unicode/font review and general within-view label placement remain open.
 See evidence/existing-dwg-text-revision.json.

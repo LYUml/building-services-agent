@@ -143,6 +143,8 @@ def main():
         if action=='run':
             task.add_argument('--autocad',type=Path,required=True)
             task.add_argument('--graphviz',type=Path)
+        else:
+            task.add_argument('--independent-report',type=Path,help='Write a separate DWG readback report for a verified revision')
     for name in ('autocad-source','autocad-sheet'):
         group=sub.add_parser(name,help='Source-bound AutoCAD intake or schedule writing; acceptance remains scoped')
         commands=group.add_subparsers(dest='cad_command',required=True)
@@ -297,11 +299,16 @@ def main():
             from . import drawing_access
             # Use exactly the MCP boundary and its schema dispatch; no second engine.
             try:
-                result=(drawing_access.run(a.project,a.out,autocad=a.autocad,graphviz=a.graphviz)
-                        if a.drawing_command=='run' else drawing_access.inspect(a.project,a.out))
+                if a.drawing_command=='run':
+                    result=drawing_access.run(a.project,a.out,autocad=a.autocad,graphviz=a.graphviz)
+                elif a.independent_report is not None:
+                    result=drawing_access.inspect_revision_readback(a.project,a.out,a.independent_report)
+                else:
+                    result=drawing_access.inspect(a.project,a.out)
             except (KeyError,TypeError) as error:
                 raise ProjectError(f'Drawing {a.drawing_command} failed: {error}') from error
-            print(json.dumps(result,indent=2));return 0
+            print(json.dumps(result,indent=2))
+            return 2 if result.get('independent_readback', {}).get('correspondence_pass') is False else 0
         if a.command in ('autocad-source','autocad-sheet'):
             # Paths and runtime are explicit host arguments; adapters retain all gates.
             if a.command=='autocad-source':

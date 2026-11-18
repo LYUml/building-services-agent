@@ -31,7 +31,7 @@ OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
     'network_analysis_access':'run_network run_fittings inspect list_requests read_request run_delivery inspect_delivery',
     'tag_delivery_access':'run inspect',
     'pressure_ledger_access':'run inspect list_gaps read_outlet',
-    'drawing_access':'run inspect',
+    'drawing_access':'run inspect inspect_revision_readback',
     'revit_connectivity':'run',
     'revit_automation_reopen':'verify',
     'revit_request':'prepare',

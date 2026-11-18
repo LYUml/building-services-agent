@@ -111,6 +111,20 @@ def inspect(project,out):
     return engine(project).verify(project,out)
 
 
+def inspect_revision_readback(project, out, report):
+    """Cross-check the verified native revision against its own reopened export."""
+    from . import drawing_revision, dwg_readback
+
+    out, report = (Path(path).resolve() for path in (out, report))
+    if report.is_relative_to(out):
+        raise ValueError('Independent readback report must be outside the immutable revision')
+    if engine(project) is not drawing_revision:
+        raise ValueError('Independent revision readback requires a drawing revision recipe')
+    verified = drawing_revision.verify(project, out)
+    readback = dwg_readback.run(out / 'Revised Drawing.dwg', report, out / 'reopened/source-export.dxf')
+    return dict(**verified, independent_readback=readback)
+
+
 def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     sub=parser.add_subparsers(dest='action',required=True)

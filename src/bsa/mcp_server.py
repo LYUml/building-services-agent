@@ -208,6 +208,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.drawing_access.inspect',local(project),local(out))
 
     @server.tool(annotations=write)
+    def bsa_crosscheck_drawing_revision(project:str,out:str,report:str)->dict[str,Any]:
+        """Verify a saved DWG revision and write a separate independent comparison with its reopened DXF."""
+        return invoke('bsa.drawing_access.inspect_revision_readback',local(project),local(out),local(report))
+
+    @server.tool(annotations=write)
     def bsa_run_pressure_evidence_ledger(source:str,out:str)->dict[str,Any]:
         """Reconcile existing native fitting evidence per outlet and map missing numerical data. No new loss coefficients or fan-duty acceptance."""
         return invoke('bsa.pressure_ledger_access.run',local(source),local(out))
