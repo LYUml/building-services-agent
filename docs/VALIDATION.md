@@ -40,6 +40,15 @@ the test process, the installed virtual environment passed all seven
 
 ## Repository-wide Windows snapshot
 
+The pristine detached Windows checkout of `3f90496` collected 2,068 tests
+and completed in 3,654.61 seconds with exit code 0. Pytest reported 1,814
+passed, 254 skipped and 864 subtests passed. The run used an isolated
+ACadSharp worker, default project-root selection and pytest-created scratch
+directory. All 23 cases that failed during startup at `3fff35b` passed.
+The local `runs/full-git-3f90496-74bde8be` directory retains the commit,
+exit code, pytest log and JUnit report. Native Revit execution remains a
+separate verification requirement.
+
 The `3fff35b` detached checkout started without `runs/`. The first 23
 fixture failures occurred before a later test created that shared scratch
 directory. At `607ad8e`, pytest creates it before collection. A pristine
