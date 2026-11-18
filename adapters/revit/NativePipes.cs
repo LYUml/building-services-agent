@@ -29,7 +29,8 @@ public static partial class NativePipes
             ?? throw new ArgumentException("Selected level is not in this document");
         var start = Point(request.StartMetres);
         var end = Point(request.EndMetres);
-        if (!double.IsFinite(request.DiameterMetres) || request.DiameterMetres <= 0)
+        var diameterFeet = Feet(request.DiameterMetres);
+        if (!double.IsFinite(diameterFeet) || diameterFeet <= 0)
             throw new ArgumentException("Positive finite diameter required");
         if (start.DistanceTo(end) <= Math.Max(doc.Application.ShortCurveTolerance, 1.0 / 120.0))
             throw new ArgumentException("Pipe is below Revit's minimum curve length");
@@ -48,7 +49,7 @@ public static partial class NativePipes
         {
             var pipe = Pipe.Create(doc, systemType.Id, pipeType.Id, level.Id, start, end);
             var diameter = pipe.get_Parameter(BuiltInParameter.RBS_PIPE_DIAMETER_PARAM);
-            if (diameter is null || diameter.IsReadOnly || !diameter.Set(Feet(request.DiameterMetres)))
+            if (diameter is null || diameter.IsReadOnly || !diameter.Set(diameterFeet))
                 throw new InvalidOperationException("Native diameter could not be set");
             doc.Regenerate();
             var actualSystemTypeId = pipe.get_Parameter(BuiltInParameter.RBS_PIPING_SYSTEM_TYPE_PARAM)?.AsElementId();
@@ -99,6 +100,12 @@ public static partial class NativePipes
     {
         if (values is null || values.Length != 3 || values.Any(x => !double.IsFinite(x)))
             throw new ArgumentException("Three finite metre coordinates required");
-        return new XYZ(Feet(values[0]), Feet(values[1]), Feet(values[2]));
+        var feet = values.Select(Feet).ToArray();
+        if (feet.Any(value => !double.IsFinite(value)))
+            throw new ArgumentException("Pipe endpoint is outside Revit coordinate limits");
+        var point = new XYZ(feet[0], feet[1], feet[2]);
+        if (!XYZ.IsWithinLengthLimits(point))
+            throw new ArgumentException("Pipe endpoint is outside Revit coordinate limits");
+        return point;
     }
 }
