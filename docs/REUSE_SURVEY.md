@@ -2811,3 +2811,9 @@ Other formats and versions retain their normal open path. A repeat with
 both drawing suites and `tests/test_ifc_drawing.py`, with cleanup warnings
 treated as errors, passed 20 tests and 16 subtests with two native-host
 skips. This mitigation covers these drawing readers.
+
+With `BSA_TEST_AUTOCAD=1` on the same Windows host, the three suites passed
+22 tests and 16 subtests with warnings treated as errors and no skips.
+The two native tests checked saved DWG reopening, IFC identity links, and
+50 mm or 60 mm plotted references within 0.2 mm. Visual plot review was
+still pending in the test receipts.
