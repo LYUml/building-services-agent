@@ -4,9 +4,11 @@ import json
 import math
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
+from unittest.mock import call, patch
 from bsa.bim import validate,run
-from bsa.circular_geometry import WALL,MIXED_SCOPE,specification,verify,configure
+from bsa.circular_geometry import WALL,MIXED_SCOPE,specification,verify,configure,native_shape
 from bsa.engine import ProjectError
 from bsa.cli import digest
 
@@ -23,6 +25,28 @@ def model_input():
 
 
 class CircularGeometryTests(unittest.TestCase):
+    @unittest.skipUnless(importlib.util.find_spec('ifcopenshell'), 'requires IFC runtime')
+    def test_fast_mesh_conversion_keeps_opening_and_kernel_fallback(self):
+        face_set = SimpleNamespace(Closed=True, CoordIndex=[(1, 2, 3)],
+                                   is_a=lambda name: name == 'IfcTriangulatedFaceSet')
+        body = SimpleNamespace(RepresentationIdentifier='Body', RepresentationType='Tessellation', Items=[face_set])
+        product = SimpleNamespace(Representation=SimpleNamespace(Representations=[body]), HasOpenings=[])
+        settings = object()
+        with patch('ifcopenshell.geom.create_shape') as convert:
+            self.assertIs(native_shape(settings, product), convert.return_value)
+            convert.assert_called_once_with(settings, product, geometry_library='cgal-simple')
+            convert.reset_mock()
+            product.HasOpenings.append(object())
+            self.assertIs(native_shape(settings, product), convert.return_value)
+            convert.assert_called_once_with(settings, product)
+            product.HasOpenings.clear()
+            convert.reset_mock()
+            convert.side_effect = [RuntimeError('Unavailable geometry kernel'), convert.return_value]
+            with self.assertLogs('bsa.circular_geometry', level='WARNING'):
+                self.assertIs(native_shape(settings, product), convert.return_value)
+            self.assertEqual(convert.call_args_list, [call(settings, product, geometry_library='cgal-simple'),
+                                                      call(settings, product)])
+
     def test_explicit_diameters_and_boundary_ports_required(self):
         source=model_input();validate(source)
         for mutate in (lambda p:p['devices'][1]['properties'].pop('OutsideDiameter_m'),
