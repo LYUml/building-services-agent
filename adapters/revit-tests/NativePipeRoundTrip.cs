@@ -10,6 +10,8 @@ namespace Bsa.Revit.NativeTests;
 
 public sealed class NativePipeRoundTrip
 {
+    private sealed record ElbowConnection(int Pipe, int Fitting, XYZ PipeOrigin);
+
     [Test]
     public void CapturesSyntheticPipeInventory(Application application)
     {
@@ -145,14 +147,24 @@ public sealed class NativePipeRoundTrip
             var requiredPairs = connected.Select((pair, index) => new[] {
                 new object[] { index == 0 ? firstId : secondId, pair.Pipe },
                 new object[] { fittingId, pair.Fitting } }).ToArray();
+            var positions = connected.Select((pair, index) => new {
+                port = requiredPairs[index][0],
+                origin_m = new[] { pair.PipeOrigin.X, pair.PipeOrigin.Y, pair.PipeOrigin.Z }
+                    .Select(value => UnitUtils.ConvertFromInternalUnits(value, UnitTypeId.Meters)).ToArray() });
             NativeEvidence.WriteJson(expected, new {
-                source = "Synthetic elbow test: reciprocal physical connector pairs before save", required_pairs = requiredPairs });
+                source = "Synthetic elbow test: reciprocal physical connector pairs before save",
+                required_pairs = requiredPairs, port_positions_m = positions.ToArray() });
             using (var options = new SaveAsOptions { OverwriteExistingFile = false })
                 owned.SaveAs(authored, options);
             Assert.That(owned.Close(false), Is.True);
             owned = null;
             owned = application.OpenDocumentFile(authored);
-            Assert.That(ElbowConnections(owned, firstId, secondId, fittingId), Is.EqualTo(connected));
+            var reopenedConnections = ElbowConnections(owned, firstId, secondId, fittingId);
+            foreach (var (before, after) in connected.Zip(reopenedConnections))
+            {
+                Assert.That((after.Pipe, after.Fitting), Is.EqualTo((before.Pipe, before.Fitting)));
+                Assert.That(after.PipeOrigin.DistanceTo(before.PipeOrigin), Is.LessThanOrEqualTo(1e-7));
+            }
             string authoredHash = Hash(authored);
             string report = Path.Combine(folder, "reopened-inventory.json");
             CaptureInventory(owned, authored, report, authoredHash);
@@ -176,7 +188,7 @@ public sealed class NativePipeRoundTrip
     private static Connector EndAt(Pipe pipe, XYZ point) => pipe.ConnectorManager.Connectors.Cast<Connector>()
         .Single(port => port.ConnectorType == ConnectorType.End && port.Origin.DistanceTo(point) <= 1e-7);
 
-    private static (int Pipe, int Fitting)[] ElbowConnections(Document document, string firstId, string secondId, string fittingId)
+    private static ElbowConnection[] ElbowConnections(Document document, string firstId, string secondId, string fittingId)
     {
         var fitting = document.GetElement(fittingId) as FamilyInstance
             ?? throw new InvalidOperationException("Native elbow missing");
@@ -194,7 +206,7 @@ public sealed class NativePipeRoundTrip
             Assert.That(peer.Domain, Is.EqualTo(Domain.DomainPiping));
             Assert.That(peer.IsConnectedTo(end) && end.IsConnectedTo(peer), Is.True);
             Assert.That(peer.Origin.DistanceTo(end.Origin), Is.LessThanOrEqualTo(1e-7));
-            return (Pipe: end.Id, Fitting: peer.Id);
+            return new ElbowConnection(end.Id, peer.Id, end.Origin);
         }).ToArray();
         Assert.That(result[0].Fitting, Is.Not.EqualTo(result[1].Fitting));
         return result;
