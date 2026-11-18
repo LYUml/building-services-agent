@@ -71,17 +71,18 @@ class ThreePhaseDrawingTests(unittest.TestCase):
         doc=ezdxf.readfile(out/'schematic.dxf')
         circuits = json.loads(self.project.read_text(encoding='utf-8-sig'))['lines']
         self.assertEqual(len(bus_contacts(doc, circuits)), 2)
+        self.assertEqual(result['dxf_bus_contacts'], bus_contacts(doc, circuits))
         feeder = next(entity for entity in doc.modelspace().query('LINE')
                       if [tag.value for tag in entity.get_xdata(APP)[:2]] == ['line', 'feeder'])
         feeder.dxf.start += (1, 0, 0)
-        with self.assertRaisesRegex(ProjectError, 'Reopened line feeder does not meet'):
+        with self.assertRaisesRegex(ProjectError, 'Saved line feeder does not meet'):
             bus_contacts(doc, circuits)
         feeder.dxf.start -= (1, 0, 0)
         loop = [(5, 5), (6, 5), (6, 6)]
         for start, end in zip(loop, loop[1:] + loop[:1]):
             extra = doc.modelspace().add_line(start, end)
             extra.set_xdata(APP, feeder.get_xdata(APP))
-        with self.assertRaisesRegex(ProjectError, 'Reopened line feeder contains disconnected geometry'):
+        with self.assertRaisesRegex(ProjectError, 'Saved line feeder contains disconnected geometry'):
             bus_contacts(doc, circuits)
         for extra in list(doc.modelspace().query('LINE[layer=="0"]')):
             doc.modelspace().delete_entity(extra)

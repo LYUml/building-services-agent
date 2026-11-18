@@ -79,9 +79,9 @@ def bus_contacts(doc, circuits):
         ends = [point for point, adjacent in neighbors.items() if len(adjacent) == 1]
         boxes = [geometry['bus', bus] for bus in (tail, head)]
         if len(ends) != 2 or any(not box for box in boxes):
-            raise ProjectError(f'Cannot establish both reopened bus contacts for line {name}')
+            raise ProjectError(f'Cannot establish both bus contacts for line {name}')
         if any(len(adjacent) > 2 for adjacent in neighbors.values()):
-            raise ProjectError(f'Reopened line {name} branches within the circuit')
+            raise ProjectError(f'Saved line {name} branches within the circuit')
         reached = set()
         pending = [ends[0]]
         while pending:
@@ -90,7 +90,7 @@ def bus_contacts(doc, circuits):
                 reached.add(point)
                 pending.extend(neighbors[point])
         if len(reached) != len(neighbors):
-            raise ProjectError(f'Reopened line {name} contains disconnected geometry')
+            raise ProjectError(f'Saved line {name} contains disconnected geometry')
         pairings = [
             [min(segment_distance(point, a, b) for a, b in box)
              for point, box in zip(order, boxes)]
@@ -98,9 +98,9 @@ def bus_contacts(doc, circuits):
         ]
         matches = [distances for distances in pairings if max(distances) <= 1e-6]
         if not matches:
-            raise ProjectError(f'Reopened line {name} does not meet its declared buses {tail} and {head}')
+            raise ProjectError(f'Saved line {name} does not meet its declared buses {tail} and {head}')
         if len(matches) != 1:
-            raise ProjectError(f'Reopened line {name} has ambiguous contacts at buses {tail} and {head}')
+            raise ProjectError(f'Saved line {name} has ambiguous contacts at buses {tail} and {head}')
         distances = matches[0]
         for bus, segments in bus_geometry.items():
             if bus in (tail, head):
@@ -110,7 +110,7 @@ def bus_contacts(doc, circuits):
                     if (intersection_line_line_2d((Vec2(a), Vec2(b)), (Vec2(c), Vec2(d)), virtual=False)
                             is not None or min(segment_distance(a, c, d), segment_distance(b, c, d),
                                                segment_distance(c, a, b), segment_distance(d, a, b)) <= 1e-6):
-                        raise ProjectError(f'Reopened line {name} touches undeclared bus {bus}')
+                        raise ProjectError(f'Saved line {name} touches undeclared bus {bus}')
         checks.append(dict(line=name, from_bus=tail, to_bus=head,
                            from_gap_mm=distances[0], to_gap_mm=distances[1]))
     return checks
@@ -262,7 +262,9 @@ def run(project,study_root,out,dot,autocad=None):
     if not extents.has_data or extents.extmin.x<0 or extents.extmin.y<0 or extents.extmax.x>270 or extents.extmax.y>180:raise ProjectError('diagram or labels exceed sheet window')
     from .cad_overlay import snapshot,reconcile
     reconcile(snapshot(doc),source)
-    if identities(doc)!=identities(ezdxf.readfile(source)):raise ProjectError('saved DXF electrical identities changed')
+    saved = ezdxf.readfile(source)
+    if identities(doc)!=identities(saved):raise ProjectError('saved DXF electrical identities changed')
+    dxf_contacts = bus_contacts(saved, p['lines'])
     with (out/'loads.csv').open('x',newline='',encoding='utf-8') as f:
         writer=csv.writer(f);writer.writerow(['load_id','bus','phase','electrical_kw','reactive_kvar','source_id'])
         for load in p['loads']:
@@ -276,7 +278,8 @@ def run(project,study_root,out,dot,autocad=None):
     if any(digest(Path(f))!=h for f,h in generated_before.items()):raise ProjectError('generated source artifacts changed during native delivery')
     if any(not Path(f).is_file() or digest(Path(f))!=h for f,h in before.items()):raise ProjectError('inputs changed during drawing')
     result=dict(inputs=before,study_sha256=study_hash,graphviz_sha256=graphviz_sha256,bus_count=len(p['buses']),line_count=len(p['lines']),
-        load_phase_rows=3*len(p['loads']),line_phase_rows=3*len(p['lines']),dxf_identity_pass=True,native=native_result,
+        load_phase_rows=3*len(p['loads']),line_phase_rows=3*len(p['lines']),dxf_identity_pass=True,
+        dxf_bus_contacts=dxf_contacts,native=native_result,
         design_accepted=False,scope='Source-linked calculation schematic and schedules only; full installation, protection and Hong Kong acceptance pending')
     result['artifacts']={f.relative_to(out).as_posix():digest(f) for f in out.rglob('*') if f.is_file()}
     (out/'drawing.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
