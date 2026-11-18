@@ -141,6 +141,12 @@ public sealed class NativePipeRoundTrip
                 Assert.That(transaction.Commit(), Is.EqualTo(TransactionStatus.Committed));
             }
             var connected = ElbowConnections(owned, firstId, secondId, fittingId);
+            string expected = Path.Combine(folder, "expected-connections.json");
+            var requiredPairs = connected.Select((pair, index) => new[] {
+                new object[] { index == 0 ? firstId : secondId, pair.Pipe },
+                new object[] { fittingId, pair.Fitting } }).ToArray();
+            NativeEvidence.WriteJson(expected, new {
+                source = "Synthetic elbow test: reciprocal physical connector pairs before save", required_pairs = requiredPairs });
             using (var options = new SaveAsOptions { OverwriteExistingFile = false })
                 owned.SaveAs(authored, options);
             Assert.That(owned.Close(false), Is.True);
@@ -155,6 +161,7 @@ public sealed class NativePipeRoundTrip
                 pipe_unique_id = index == 0 ? firstId : secondId, pipe_connector_id = pair.Pipe,
                 fitting_unique_id = fittingId, fitting_connector_id = pair.Fitting });
             Console.WriteLine($"Saved pipe/fitting pairs: {JsonSerializer.Serialize(pairs)}");
+            Console.WriteLine($"Pre-save expected connections: {expected} ({Hash(expected)})");
             Console.WriteLine($"Reopened inventory: {report} ({Hash(report)})");
         }
         finally

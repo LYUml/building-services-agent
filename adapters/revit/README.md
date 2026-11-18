@@ -108,7 +108,9 @@ elbow. Choose endpoints in an empty part of the model with enough leg length
 for the fitting. The test creates a perpendicular second leg and a native
 elbow in a separate copy. It checks the two reciprocal physical connector
 pairs, coincident origins and stable connector IDs before and after saving.
-The console records the exact pipe and fitting IDs for saved diagnosis.
+The test records the pre-save pairs in `expected-connections.json`. Pass that
+file as `--expected-connections` to `bsa revit-inventory-check` alongside the
+authored RVT and reopened inventory to check the same pairs offline.
 The test compiles against Revit 2027 and still requires authorized host execution.
 
 The Automation build also contains the separate `AutomationCreatePipe` entry
