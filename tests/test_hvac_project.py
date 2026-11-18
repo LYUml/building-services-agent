@@ -32,6 +32,25 @@ class NativeTerminalDeliveryTests(unittest.TestCase):
             for name in ('report', 'report-pdf', 'terminal-review.json'):
                 self.assertFalse((output/name).exists())
 
+    def test_native_aligned_terminal_allows_design_reports(self):
+        from bsa.hvac_package_access import run as run_package
+
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as directory:
+            root = Path(directory)
+            build = runpy.run_path(str(ROOT/'examples/hvac-package/build_inputs.py'))['build']
+            plan = build(root/'inputs')
+            config, output = root/'project.json', root/'package'
+            create(plan, config, terminal_review=plan.parent/'review.json')
+            result = run_package(config, output, font='C:/Windows/Fonts/arial.ttf', autocad=DEFAULT_EXE)
+            workflow = json.loads((output/'workflow/workflow.json').read_bytes())
+            self.assertEqual(workflow['tasks']['native']['status'], 'pass')
+            self.assertTrue(result['integrity_pass'])
+            self.assertEqual(result['terminal_review_gate'], 'passed')
+            self.assertEqual(result['status'], 'review_required')
+            self.assertFalse(result['design_accepted'])
+            for name in ('report/HVAC System Design.html', 'report-pdf/HVAC System Design.pdf', 'terminal-review.json'):
+                self.assertTrue((output/name).is_file(), name)
+
 
 class HVACProjectTests(unittest.TestCase):
     def test_stale_project_reports_existing_drift_recovery_without_writing(self):
