@@ -92,7 +92,11 @@ def run(plan,original_run,task,catalogue,target,out,*,execute_options=None):
     baseline_key = baseline.relative_to(original_run).as_posix()
     baseline_hash = report['artifact_hashes'].get(baseline_key)
     if baseline_hash is None or not baseline.is_file() or digest(baseline) != baseline_hash:
-        raise ValueError(f'Failed selection lacks a verified result at {baseline_key}; diagnose the original execution before revising its catalogue')
+        scope = report['tasks'][task].get('scope')
+        message = f'Failed selection lacks a verified result at {baseline_key}.'
+        if isinstance(scope, str) and scope.strip():
+            message += f' Original task diagnosis: {scope}'
+        raise ValueError(message + ' Diagnose the original execution before revising its catalogue.')
     old=read_json(baseline)
     if old.get('selected') is not None or old.get('calculated_checks_pass') is not False:
         raise ValueError('Failed no-selection baseline required')
