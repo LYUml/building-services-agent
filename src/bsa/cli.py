@@ -83,6 +83,10 @@ def main():
     from . import openfoam_history
     openfoam_history.add_arguments(sub.add_parser(
         'openfoam-history-review', help='Review a saved OpenFOAM steady history segment'))
+    steady_verify = sub.add_parser('openfoam-history-verify', help='Verify a saved OpenFOAM steady history review')
+    steady_verify.add_argument('--manifest', required=True)
+    steady_verify.add_argument('--report', required=True)
+    steady_verify.add_argument('--window', type=int, default=200)
     transient = sub.add_parser('openfoam-pressure-review', help='Review saved OpenFOAM physical-time pressure differences')
     transient.add_argument('--manifest', required=True)
     transient.add_argument('--output', required=True)
@@ -231,6 +235,8 @@ def main():
         if a.command=='openfoam-history-review':
             result = openfoam_history.review_project(a.manifest, a.output, window=a.window)
             print(json.dumps(result, indent=2));return 0 if result['numerical_window_pass'] else 2
+        if a.command=='openfoam-history-verify':
+            print(json.dumps(openfoam_history.verify_project(a.manifest, a.report, window=a.window), indent=2));return 0
         if a.command=='openfoam-pressure-review':
             from .openfoam_transient import review_pressure_project
             print(json.dumps(review_pressure_project(a.manifest, a.output), indent=2));return 0
@@ -374,7 +380,7 @@ def main():
         from .cli_errors import missing_dependency
         parser.exit(2,missing_dependency(e)['message']+'\n')
     except (KeyError,TypeError) as e:
-        if a.command=='openfoam-history-review':
+        if a.command in ('openfoam-history-review','openfoam-history-verify'):
             parser.exit(2,'Invalid OpenFOAM history evidence structure: '+str(e)+'\n')
         if a.command=='revit-verify-automation-reopen':
             parser.exit(2,'Invalid saved Revit evidence structure: '+str(e)+'\n')

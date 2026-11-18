@@ -121,6 +121,15 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None,fds_rele
         return invoke('bsa.openfoam_history.review_project',local(manifest).relative_to(root).as_posix(),
                       local(output).relative_to(root).as_posix(),window=window)
 
+    @server.tool(annotations=read)
+    def bsa_verify_openfoam_history(manifest:str,report:str,
+                                    window:Annotated[int,Field(strict=True,ge=2)]=200)->dict[str,Any]:
+        """Reconstruct a saved OpenFOAM steady history review without writing files."""
+        if selected is None:
+            raise ValueError('Explicit host BSA_PROJECT_ROOT required')
+        return invoke('bsa.openfoam_history.verify_project',local(manifest).relative_to(root).as_posix(),
+                      local(report).relative_to(root).as_posix(),window=window)
+
     @server.tool(annotations=write)
     def bsa_review_openfoam_pressure(manifest:str,output:str)->dict[str,Any]:
         """Review saved pressure differences over declared physical-time windows without running OpenFOAM."""

@@ -129,12 +129,33 @@ class ProjectEvidence:
             json.dump(result, stream, indent=2, allow_nan=False)
             stream.write('\n')
 
+    def check_report(self, raw, expected):
+        self.check()
+        if json.dumps(json.loads(raw), sort_keys=True, allow_nan=False) != json.dumps(expected, sort_keys=True, allow_nan=False):
+            raise ValueError('Saved OpenFOAM review differs from the reconstructed evidence')
+
 
 def review_project(manifest_name, output_name, *, window=200):
     """Review one explicit segment inside the host BSA_PROJECT_ROOT."""
+    evidence = ProjectEvidence(output_name)
+    result = _review(manifest_name, evidence, window)
+    evidence.save(result)
+    return result
+
+
+def verify_project(manifest_name, report_name, *, window=200):
+    """Reconstruct a saved steady convergence report without writing files."""
+    evidence = ProjectEvidence()
+    raw, report_hash = evidence.read(report_name)
+    expected = _review(manifest_name, evidence, window)
+    evidence.check_report(raw, expected)
+    return dict(integrity_pass=True, report_sha256=report_hash, window_iterations=expected['window_iterations'],
+                numerical_window_pass=expected['numerical_window_pass'], engineering_accepted=False)
+
+
+def _review(manifest_name, evidence, window):
     from . import cfd_convergence
 
-    evidence = ProjectEvidence(output_name)
     read = evidence.read
     data, digest = read(manifest_name)
     manifest = json.loads(data)
@@ -177,7 +198,6 @@ def review_project(manifest_name, output_name, *, window=200):
         'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
         'assessor_sha256': hashlib.sha256(Path(cfd_convergence.__file__).read_bytes()).hexdigest(),
     }
-    evidence.save(result)
     return result
 
 

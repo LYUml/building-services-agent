@@ -90,6 +90,12 @@ class ProjectReviewTests(unittest.TestCase):
         cli = subprocess.run(args + ['cli.json'], capture_output=True, text=True)
         self.assertEqual(cli.returncode, 0, cli.stderr)
         expected = json.loads(cli.stdout)
+        verify = [sys.executable, '-m', 'bsa.cli', 'openfoam-history-verify', '--manifest',
+                  'manifest.json', '--window', '2', '--report']
+        result = subprocess.run(verify + ['cli.json'], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        checked = json.loads(result.stdout)
+        self.assertTrue(checked['integrity_pass'])
         denied = subprocess.run(args + ['../escaped.json'], capture_output=True, text=True)
         self.assertEqual(denied.returncode, 2, denied.stderr)
         self.assertIn('remain inside the host project', denied.stderr)
@@ -107,11 +113,20 @@ class ProjectReviewTests(unittest.TestCase):
                         result = await session.call_tool('bsa_review_openfoam_history', arguments)
                         self.assertFalse(result.isError, result.content)
                         self.assertEqual(result.structuredContent, expected)
+                        verified = await session.call_tool('bsa_verify_openfoam_history',
+                                                           dict(manifest='manifest.json', report='cli.json', window=2))
+                        self.assertFalse(verified.isError, verified.content)
+                        self.assertEqual(verified.structuredContent, checked)
                         escaped = await session.call_tool('bsa_review_openfoam_history',
                                                           {**arguments, 'output': '../escaped.json'})
                         self.assertTrue(escaped.isError)
 
             asyncio.run(compare())
+        expected['pressure_stability_pass'] = False
+        (self.root/'edited.json').write_text(json.dumps(expected), encoding='utf-8')
+        denied = subprocess.run(verify + ['edited.json'], capture_output=True, text=True)
+        self.assertEqual(denied.returncode, 2)
+        self.assertIn('differs from the reconstructed evidence', denied.stderr)
 
     def test_wrong_observation_window_cannot_be_accepted(self):
         self.manifest['expected_window'] = [2, 3]

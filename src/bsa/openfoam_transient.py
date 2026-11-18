@@ -127,9 +127,7 @@ def verify_pressure_project(manifest, report):
     evidence = openfoam_history.ProjectEvidence()
     raw, report_hash = evidence.read(report)
     expected = _pressure_review(manifest, evidence)
-    evidence.check()
-    if json.dumps(json.loads(raw), sort_keys=True, allow_nan=False) != json.dumps(expected, sort_keys=True, allow_nan=False):
-        raise ValueError('Saved OpenFOAM pressure review differs from the reconstructed evidence')
+    evidence.check_report(raw, expected)
     return dict(integrity_pass=True, report_sha256=report_hash, window_count=len(expected['windows']),
                 diagnostic_only=True, engineering_accepted=False)
 

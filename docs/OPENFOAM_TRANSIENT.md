@@ -9,6 +9,9 @@ For a saved steady segment, use `bsa openfoam-history-review --manifest <file>
 --output <new-file>` or MCP `bsa_review_openfoam_history` with `manifest`,
 `output` and optional `window`. Both use host-selected project-relative paths.
 The CLI retains the review and exits 2 when its numerical window fails.
+Use `bsa openfoam-history-verify --manifest <file> --report <saved-file>` or
+MCP `bsa_verify_openfoam_history` with the original `window` to reconstruct
+the saved review. Integrity can pass while the numerical result fails.
 See [the steady manifest contract](OPENFOAM_IMPORT_PRECISION.md#project-command).
 Both interfaces replayed the retained 51–250 step segment from byte-identical
 local input copies. All 10 history files, four basis files and numerical
