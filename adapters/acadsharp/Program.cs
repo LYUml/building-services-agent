@@ -26,7 +26,7 @@ try
     }).ToArray();
     string output = JsonSerializer.Serialize(new
     {
-        schema = "bsa.acadsharp-modelspace/1",
+        schema = "bsa.acadsharp-modelspace/2",
         source_sha256 = before,
         reader_version = "3.8.35",
         reader_sha256 = readerHash,

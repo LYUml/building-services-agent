@@ -132,7 +132,9 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     if completed.returncode:
         raise ValueError(f'ACadSharp DWG reader failed (exit {completed.returncode}): {completed.stderr[:1000].strip()}')
     result = json.loads(completed.stdout)
-    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/1'
+    if isinstance(result, dict) and result.get('schema') == 'bsa.acadsharp-modelspace/1':
+        raise ValueError('Rebuild the ACadSharp DWG worker from the current checkout (inventory schema v2 required)')
+    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/2'
             or result.get('source_sha256') != source_hash or result.get('reader_version') != '3.8.35'
             or result.get('reader_sha256') != reader_hash
             or result.get('native_autocad_executed') is not False or result.get('design_accepted') is not False

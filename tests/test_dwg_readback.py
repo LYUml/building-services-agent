@@ -88,6 +88,7 @@ class DwgReadbackTests(unittest.TestCase):
             asyncio.run(read_mcp())
             self.assertEqual(cli_report.read_bytes(), mcp_report.read_bytes())
             report = json.loads(cli_report.read_bytes())
+            self.assertEqual(report['schema'], 'bsa.acadsharp-modelspace/2')
             self.assertTrue(summary['correspondence_pass'])
             self.assertEqual(summary['insunits'], 4)
             self.assertEqual(report['comparison']['geometry_compared_count'], 5)
