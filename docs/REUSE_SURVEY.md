@@ -2959,6 +2959,10 @@ Tool-pack selection limits exposure and does not grant that permission.
 Keep the default permission profile for the initial health and readback
 trial. Treat native connection and document lifecycle as separate host gates,
 and verify the file identity before each authorized change.
+In a local stdio comparison, `HORIZUN_TOOL_PACKS=mep` exposed 61 tools and
+`mep,administration` exposed 63. Both exposed the health and MEP connection
+tools. Neither exposed open, save or document session with the existing
+permission profile. Only the child process environment was varied.
 
 ## LibreDWG and QCAD command-line evaluation
 
