@@ -29,6 +29,11 @@ public sealed class AutomationCreatePipe : IExternalDBApplication
         if (document.IsWorkshared || document.IsLinked)
             throw new InvalidOperationException("Use a standalone non-workshared test RVT");
         string model = Path.GetFullPath("input.rvt");
+        using (var info = BasicFileInfo.Extract(model))
+        {
+            if (!info.IsSavedInCurrentVersion)
+                throw new InvalidOperationException("Pipe creation requires an input RVT saved in the engine release");
+        }
         string requestPath = Path.GetFullPath("pipe-request.json");
         string output = Path.GetFullPath("authored.rvt");
         string receipt = Path.GetFullPath("creation.json");

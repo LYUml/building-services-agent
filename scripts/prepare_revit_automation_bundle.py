@@ -85,6 +85,8 @@ def check_model_metadata(model, expected_sha256, operation):
         raise ValueError('RVT changed between request preparation and metadata inspection')
     if info['revit_version'] > 2027:
         raise ValueError('Saved RVT release is newer than the Revit 2027 Automation target')
+    if operation == 'create-pipe' and info['revit_version'] < 2027:
+        raise ValueError('Pipe creation requires an RVT saved in Revit 2027; upgrade a separate copy first')
     if operation == 'create-pipe' and (info['workshared'] is True or info['single_user_cloud_model'] is True):
         raise ValueError('Pipe creation requires a standalone non-workshared RVT')
     return info

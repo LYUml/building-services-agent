@@ -157,6 +157,13 @@ class RevitAutomationBundleTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'standalone non-workshared'):
                     prepare(assembly, directory / 'workshared', inspect_model=True, **args)
             self.assertFalse((directory / 'workshared').exists())
+            older = dict(workshared, revit_version=2024, workshared=False)
+            with patch('bsa.revit_file_metadata.inspect', return_value=older):
+                with self.assertRaisesRegex(ValueError, 'upgrade a separate copy first'):
+                    prepare(assembly, directory / 'older', inspect_model=True, **args)
+                with self.assertRaisesRegex(ValueError, 'upgrade a separate copy first'):
+                    verify_stage(archive.parent, model, inspect_model=True)
+            self.assertFalse((directory / 'older').exists())
             request.write_text(json.dumps(dict(fields, DiameterMetres=True)), encoding='utf-8')
             with self.assertRaisesRegex(ValueError, 'Positive diameter'):
                 prepare(assembly, directory / 'invalid-geometry', **args)

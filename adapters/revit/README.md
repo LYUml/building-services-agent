@@ -55,8 +55,10 @@ The local preparation receipt pins the Activity bytes. Engine and alias
 availability must be checked with authenticated APS before deployment.
 With the optional `revit-metadata` extra, pass `--inspect-model` together with
 `--model` to pin the saved release and worksharing flags before staging.
-This preflight rejects a newer release and rejects known workshared or
-single-user cloud inputs for pipe creation. `--verify-stage` rechecks the
+This preflight rejects a newer release. Pipe creation requires a model saved
+in Revit 2027 and rejects known workshared or single-user cloud inputs. Upgrade
+an older model on a separate copy before preparing its pipe request. The native
+creation entry point also checks the saved release before writing. `--verify-stage` rechecks the
 same metadata when present. Unknown flags and native opening remain unresolved.
 Add `--check-engine` to check the selected engine in the US East catalogue
 before writing the staging directory. The command reads the application
