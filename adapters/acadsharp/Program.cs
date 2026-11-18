@@ -26,7 +26,7 @@ try
     }).ToArray();
     string output = JsonSerializer.Serialize(new
     {
-        schema = "bsa.acadsharp-modelspace/3",
+        schema = "bsa.acadsharp-modelspace/4",
         source_sha256 = before,
         reader_version = "3.8.35",
         reader_sha256 = readerHash,
@@ -100,7 +100,8 @@ static object? Geometry(Entity entity) => entity switch
         column_spacing = insert.ColumnSpacing,
         attributes = insert.Attributes.OrderBy(attribute => attribute.Handle.ToString("X"), StringComparer.Ordinal)
             .Select(attribute => new { handle = attribute.Handle.ToString("X"), tag = attribute.Tag,
-                text = attribute.MText is null ? attribute.Value : null }).ToArray(),
+                multiline = attribute.MText is not null,
+                text = attribute.MText?.Value ?? attribute.Value }).ToArray(),
     },
     TextEntity text => new
     {

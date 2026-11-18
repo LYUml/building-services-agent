@@ -105,9 +105,9 @@ handle in an identity-only count has type and layer evidence. For regression
 of a recurring placement error, move the known object in a separate DXF
 control copy and confirm that `bsa dwg-readback` reports the expected handle
 and changed field. Keep the generated native revision and export intact.
-When equipment identifiers are stored as single-line block attributes, use an
+When equipment identifiers are stored as block attributes, use an
 attribute value change as a separate control. The expected finding identifies
-the owning `INSERT` handle and its `attributes` field. Review multiline text
+the owning `INSERT` handle and its `attributes` field. Review rendered text
 and attribute placement on the plotted sheet.
 The AutoCAD reopen receipt and actual PDF review are still required for
 native delivery. See docs/DRAWING_DOCUMENT.md for setup and scope.

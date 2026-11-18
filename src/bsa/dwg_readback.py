@@ -28,7 +28,9 @@ def dxf_geometry(entity):
                     row_count=dxf.row_count, column_count=dxf.column_count,
                     row_spacing=dxf.row_spacing, column_spacing=dxf.column_spacing,
                     attributes=sorted((dict(handle=attribute.dxf.handle, tag=attribute.dxf.tag,
-                                            text=None if attribute.has_embedded_mtext_entity else attribute.dxf.text)
+                                            multiline=attribute.has_embedded_mtext_entity,
+                                            text=(attribute.virtual_mtext_entity().text if attribute.has_embedded_mtext_entity
+                                                  else attribute.dxf.text))
                                        for attribute in entity.attribs), key=lambda attribute: attribute['handle']))
     if kind in ('ARC', 'CIRCLE'):
         result = dict(center=list(dxf.center), normal=list(dxf.extrusion), radius=dxf.radius)
@@ -75,7 +77,6 @@ def compare_reference(entities, insunits, reference):
         differences.append(dict(reason='drawing_units_differ', dwg_insunits=insunits, dxf_insunits=document.units))
     geometry_count = 0
     identity_only_counts = Counter()
-    unchecked_attribute_text = []
     matched = (actual.keys() & expected.keys()) - duplicated
     for handle in sorted(matched):
         row, entity = actual[handle], expected[handle]
@@ -85,10 +86,6 @@ def compare_reference(entities, insunits, reference):
             differences.append(dict(handle=handle, reason='type_or_layer_differs', fields=fields))
             continue
         geometry = dxf_geometry(entity)
-        if identity['type'] == 'INSERT':
-            unchecked_attribute_text.extend(dict(insert_handle=handle, attribute_handle=attribute['handle'],
-                                                 tag=attribute['tag'])
-                                            for attribute in geometry['attributes'] if attribute['text'] is None)
         if geometry is not None:
             geometry_count += 1
         else:
@@ -103,7 +100,6 @@ def compare_reference(entities, insunits, reference):
             differences.append(dict(handle=handle, reason='geometry_differs', fields=fields))
     return dict(correspondence_pass=not differences, matched_handle_count=len(matched),
                 geometry_compared_count=geometry_count,
-                unchecked_multiline_attribute_text=unchecked_attribute_text,
                 identity_only_counts_by_type=dict(sorted(identity_only_counts.items())), differences=differences,
                 numeric_absolute_tolerance_drawing_units=1e-7, angle_tolerance_rad=1e-9)
 
@@ -141,9 +137,10 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
     if completed.returncode:
         raise ValueError(f'ACadSharp DWG reader failed (exit {completed.returncode}): {completed.stderr[:1000].strip()}')
     result = json.loads(completed.stdout)
-    if isinstance(result, dict) and result.get('schema') in ('bsa.acadsharp-modelspace/1', 'bsa.acadsharp-modelspace/2'):
-        raise ValueError('Rebuild the ACadSharp DWG worker from the current checkout (inventory schema v3 required)')
-    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/3'
+    if isinstance(result, dict) and result.get('schema') in (
+            'bsa.acadsharp-modelspace/1', 'bsa.acadsharp-modelspace/2', 'bsa.acadsharp-modelspace/3'):
+        raise ValueError('Rebuild the ACadSharp DWG worker from the current checkout (inventory schema v4 required)')
+    if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/4'
             or result.get('source_sha256') != source_hash or result.get('reader_version') != '3.8.35'
             or result.get('reader_sha256') != reader_hash
             or result.get('native_autocad_executed') is not False or result.get('design_accepted') is not False
@@ -162,8 +159,7 @@ def run(source, out, reference_dxf=None, *, expected_hashes=None):
         summary = dict(reference_sha256=reference_hash, correspondence_pass=comparison['correspondence_pass'],
                        difference_count=len(comparison['differences']),
                        geometry_compared_count=comparison['geometry_compared_count'],
-                       identity_only_counts_by_type=comparison['identity_only_counts_by_type'],
-                       unchecked_multiline_attribute_text_count=len(comparison['unchecked_multiline_attribute_text']))
+                       identity_only_counts_by_type=comparison['identity_only_counts_by_type'])
     report = json.dumps(result, indent=2, allow_nan=False)
     if file_hash(source) != source_hash or file_hash(worker) != worker_hash or file_hash(reader) != reader_hash:
         raise ValueError('DWG, worker or ACadSharp library changed during inventory')
