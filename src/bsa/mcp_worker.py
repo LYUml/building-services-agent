@@ -33,6 +33,7 @@ OPERATIONS=frozenset('bsa.'+module+'.'+name for module,names in {
     'pressure_ledger_access':'run inspect list_gaps read_outlet',
     'drawing_access':'run inspect',
     'revit_connectivity':'run',
+    'revit_request':'prepare',
     'changes.access':'checkpoint inspect',
 }.items() for name in names.split())
 

@@ -23,6 +23,49 @@ ROOT=Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(importlib.util.find_spec('mcp'),'requires optional pinned MCP SDK')
 class MCPServerTests(unittest.IsolatedAsyncioTestCase):
+    async def test_revit_pipe_preparation_cli_and_stdio(self):
+        from bsa.source_refs import file_hash
+        with tempfile.TemporaryDirectory(dir=ROOT/'runs') as folder:
+            parent=Path(folder)
+            root=parent/'project'
+            root.mkdir()
+            source=root/'brief.txt'
+            source.write_text('Synthetic pipe design basis',encoding='utf-8')
+            model=root/'fixture.rvt'
+            model.write_bytes(b'Synthetic RVT identity only')
+            inventory=dict(document_path=str(model),saved_rvt_sha256=file_hash(model),units='metres',
+                           pipe_types=[dict(unique_id='p')],system_types=[dict(unique_id='s')],
+                           levels=[dict(unique_id='l')])
+            (root/'inventory.json').write_text(json.dumps(inventory),encoding='utf-8')
+            basis=dict(source=dict(path=source.name,sha256=file_hash(source),locator='Line 1'),
+                       pipe=dict(PipeTypeUniqueId='p',SystemTypeUniqueId='s',LevelUniqueId='l',
+                                 StartMetres=[0,0,0],EndMetres=[2,0,0],DiameterMetres=0.05))
+            (root/'basis.json').write_text(json.dumps(basis),encoding='utf-8')
+            env={**os.environ,'BSA_PROJECT_ROOT':str(root)}
+            cmd=[sys.executable,'-m','bsa.cli','revit-prepare-pipe','--inventory','inventory.json',
+                 '--model',model.name,'--basis','basis.json','--out','cli']
+            cli=subprocess.run(cmd,cwd=root,env=env,capture_output=True,text=True,check=False)
+            self.assertEqual(cli.returncode,0,cli.stderr)
+            params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server'],cwd=str(ROOT),env=env)
+            async with stdio_client(params) as streams:
+                async with ClientSession(*streams) as session:
+                    await session.initialize()
+                    args=dict(inventory='inventory.json',model=model.name,basis='basis.json',out='mcp')
+                    tool='bsa_prepare_revit_pipe'
+                    result=await session.call_tool(tool,args)
+                    self.assertFalse(result.isError,str(result.content))
+                    self.assertFalse(result.structuredContent['native_executed'])
+                    self.assertEqual(result.structuredContent,json.loads(cli.stdout))
+                    self.assertEqual((root/'cli/pipe-request.json').read_bytes(),
+                                     (root/'mcp/pipe-request.json').read_bytes())
+                    outside=parent/'outside.txt'
+                    outside.write_bytes(source.read_bytes())
+                    basis['source']['path']='../outside.txt'
+                    (root/'basis.json').write_text(json.dumps(basis),encoding='utf-8')
+                    rejected=await session.call_tool(tool,{**args,'out':'escaped'})
+                    self.assertTrue(rejected.isError)
+                    self.assertFalse((root/'escaped').exists())
+
     async def test_revit_inventory_cli_and_stdio(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
@@ -93,7 +136,7 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),43)
+                        self.assertEqual(len(tools),44)
                         self.assertIn('bsa_check_revit_inventory', {tool.name for tool in tools})
                         self.assertTrue({'bsa_draw_document','bsa_inspect_drawing_document'} <= {tool.name for tool in tools})
                         for tool in tools:

@@ -48,15 +48,15 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current SDK catalogue has 43 tools. The following groups cover all
-43. Numerical engines remain shared with CLI/workflow adapters rather than
+The current SDK catalogue has 44 tools. The following groups cover all
+44. Numerical engines remain shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.
 
 | Area | MCP tools |
 |---|---|
 | General drawing | bsa_draw_document, bsa_inspect_drawing_document |
-| Saved Revit inventory | bsa_check_revit_inventory |
+| Revit offline | bsa_check_revit_inventory, bsa_prepare_revit_pipe |
 | Native network and fittings | bsa_run_native_network_analysis, bsa_run_native_fitting_analysis, bsa_inspect_native_network_analysis, bsa_inspect_native_fitting_analysis, bsa_list_native_fitting_requests, bsa_read_native_fitting_request |
 | Native network delivery | bsa_run_native_network_delivery, bsa_inspect_native_network_delivery, bsa_run_tagged_network_delivery, bsa_inspect_tagged_network_delivery |
 | Pressure evidence | bsa_run_pressure_evidence_ledger, bsa_inspect_pressure_evidence_ledger, bsa_list_pressure_evidence_gaps, bsa_read_outlet_pressure_evidence |

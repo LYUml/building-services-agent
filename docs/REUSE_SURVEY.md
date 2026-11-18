@@ -6,6 +6,14 @@ through the actual CLI and stdio worker. It detects a 20 mm connector
 displacement, compares the reports byte-for-byte, and rejects output reuse,
 path escape and stale model bytes. No new dependency is required.
 
+Pipe request preparation shares the existing generator across the main CLI
+and MCP worker. A repository-local project test produces byte-identical
+requests through both paths and verifies that the MCP basis cannot reference a
+source outside the selected project. Preparation does not run Revit.
+An offline .NET 10 probe also deserialized the CLI output using the compiled
+adapter's actual PipeRequest type and checked the saved hash, endpoint and
+diameter. That probe uses synthetic RVT bytes and does not open a model.
+
 An optional expected-connection schedule uses the same extracted connector
 references and confirmed pairs. Executed controls reject coincident wrong-peer
 swaps and missing links, retain unavailable endpoints as pending, and detect

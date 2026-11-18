@@ -5,10 +5,13 @@ import math
 from pathlib import Path
 from .source_refs import file_hash as digest
 from .engine import ProjectError
+from .workspace import ROOT
 
 
-def prepare(inventory, model, basis, out):
-    root=Path(__file__).resolve().parents[2]
+def prepare(inventory, model, basis, out, *, scope=None):
+    root=Path(scope).resolve() if scope is not None else ROOT
+    if not root.is_relative_to(ROOT):
+        raise ProjectError('Native Revit requests require a repository-local workspace')
     inventory,model,basis,out=[Path(p).resolve() for p in (inventory,model,basis,out)]
     if any(not p.is_relative_to(root) for p in (inventory,model,basis,out)) or out.exists():
         raise ProjectError('Use repository-local inputs and a new output directory')
@@ -61,9 +64,13 @@ def prepare(inventory, model, basis, out):
     return result
 
 
+def add_arguments(parser):
+    for name in ('inventory','model','basis','out'):parser.add_argument('--'+name,type=Path,required=True)
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    for name in ('inventory','model','basis','out'):parser.add_argument('--'+name,type=Path,required=True)
+    add_arguments(parser)
     args=parser.parse_args()
     print(json.dumps(prepare(args.inventory,args.model,args.basis,args.out),indent=2))
 

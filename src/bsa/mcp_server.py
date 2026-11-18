@@ -60,6 +60,11 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
     @server.tool(annotations=write)
+    def bsa_prepare_revit_pipe(inventory:str,model:str,basis:str,out:str)->dict[str,Any]:
+        """Prepare a source-bound pipe request in a repository-local project. Writes JSON without starting Revit."""
+        return invoke('bsa.revit_request.prepare',local(inventory),local(model),local(basis),local(out),scope=root)
+
+    @server.tool(annotations=write)
     def bsa_check_revit_inventory(
         inventory:str,model:str,out:str,
         tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],

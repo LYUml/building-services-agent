@@ -23,7 +23,7 @@ class KnowledgeMCPTests(unittest.IsolatedAsyncioTestCase):
         async with stdio_client(params) as streams:
             async with ClientSession(*streams) as session:
                 await session.initialize()
-                self.assertEqual(len((await session.list_tools()).tools),43)
+                self.assertEqual(len((await session.list_tools()).tools),44)
                 async def call(name,args):
                     response=await session.call_tool(name,args,read_timeout_seconds=timedelta(seconds=120))
                     self.assertFalse(response.isError,str(response.content))

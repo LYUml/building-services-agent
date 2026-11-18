@@ -60,8 +60,13 @@ Workflow kind `revit_inventory_check` takes `inventory`, `model` and `tolerance_
 
 `NativePipes.Create` currently creates one straight native pipe in a valid Revit API context using explicitly supplied type, system-type, level, coordinates, diameter and source declaration. It rejects active-document mismatches and pre-existing edits, verifies readback and rolls back failures. It does not connect fittings, save the model or create sheets. Do not invoke against the completed coursework.
 
-Prepare the request with `python -m bsa.revit_request` and matching saved
-inventory. The native transaction requires the prepared RVT SHA-256. Refresh
+Prepare the request with `bsa revit-prepare-pipe` or MCP
+`bsa_prepare_revit_pipe` using `inventory`, `model`, `basis` and `out`.
+The native command only accepts repository-local test models, so use a
+repository-local workspace. MCP paths and the source referenced by the basis
+must stay within the server's selected workspace. The same request can be
+prepared offline with `python -m bsa.revit_request`.
+The native transaction requires the prepared RVT SHA-256. Refresh
 the inventory after a model save before preparing a new request.
 
 Creation provenance is written inside the same transaction using Extensible Storage. It is historical intent, not proof of current dimensions or source accuracy; the schema's hash is not authentication. Inventory compares current endpoints, diameter, length and type/system/level IDs with that intent. An intentional design revision requires new source-backed evidence and fresh downstream calculations; do not edit history or waive a difference simply because the new geometry looks plausible.

@@ -75,9 +75,11 @@ def main():
     configure_knowledge(sub)
     from .changes.cli import configure as configure_changes
     configure_changes(sub)
-    from . import revit_connectivity
+    from . import revit_connectivity, revit_request
     revit_connectivity.add_arguments(sub.add_parser(
         'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
+    revit_request.add_arguments(sub.add_parser(
+        'revit-prepare-pipe', help='Prepare a source-bound native Revit pipe request offline'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
     commands=group.add_subparsers(dest='data_command',required=True)
     task=commands.add_parser('context');task.add_argument('--name',required=True);task.add_argument('--scenario',required=True);task.add_argument('--out',type=Path,required=True)
@@ -148,6 +150,10 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='revit-prepare-pipe':
+            from .workspace import project_root
+            result=revit_request.prepare(a.inventory,a.model,a.basis,a.out,scope=project_root())
+            print(json.dumps(result,indent=2));return 0
         if a.command=='revit-inventory-check':
             result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m,
                                           expected_connections=a.expected_connections)
