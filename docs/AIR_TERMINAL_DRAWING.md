@@ -53,6 +53,10 @@ the intended peer before editing.
 When the HVAC package explicitly enables the terminal review, a failed review
 also blocks the package's design-report HTML and PDF. The incomplete package
 retains the connection error and native artifacts for diagnosis.
+In a fresh paired run with the T1 endpoint restored to its declared centre,
+the package generated both reports and returned `review_required` with a
+passing terminal review. The offset and restored runs used the same four
+scoped layers and AutoCAD 2027 Core Console.
 Project package inspection returns `terminal_review_gate` as `passed`,
 `blocked` or `not_configured`. It reconciles the saved review with the selected
 task and layers and rejects unexpected report output after a blocked review.
