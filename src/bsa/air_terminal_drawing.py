@@ -84,18 +84,28 @@ def inspect(doc, allocation, tree, binding, layers):
                 scope='Declared group membership matches saved planar symbols and straight centre-to-centre lines. Not physical ports, installed flex length, labels, 3D coordination or regulation acceptance.')
 
 
-def run(drawing,allocation,project,binding,output,*,layers):
-    paths=[Path(p).resolve() for p in (drawing,allocation,project,binding)]
-    output=Path(output).resolve()
-    if output.exists() or any(output==p or output in p.parents for p in paths):
-        raise ValueError('New output separate from sources required')
+def _inspect_files(paths, layers):
     pins={str(p):digest(p) for p in paths}
     data=[json.loads(p.read_text(encoding='utf-8')) for p in paths[1:]]
     result=inspect(ezdxf.readfile(paths[0]),data[0],data[1]['tree'],data[2],layers)
     if any(digest(Path(p))!=sha for p,sha in pins.items()):raise ValueError('Source changed during inspection')
     result.update(inputs=pins,layers=layers)
+    return result
+
+
+def _save(output, result):
     output.parent.mkdir(parents=True,exist_ok=True)
-    output.write_text(json.dumps(result,indent=2),encoding='utf-8')
+    with output.open('x', encoding='utf-8') as stream:
+        json.dump(result, stream, indent=2)
+
+
+def run(drawing,allocation,project,binding,output,*,layers):
+    paths=[Path(p).resolve() for p in (drawing,allocation,project,binding)]
+    output=Path(output).resolve()
+    if output.exists() or any(output==p or output in p.parents for p in paths):
+        raise ValueError('New output separate from sources required')
+    result = _inspect_files(paths, layers)
+    _save(output, result)
     return result
 
 
@@ -105,11 +115,15 @@ def from_workflow(plan,directory,native_task,output,*,layers):
     plan,directory,output=(Path(p).resolve() for p in (plan,directory,output))
     if output==directory or directory in output.parents or output in directory.parents:
         raise ValueError('Review output must be outside immutable workflow')
+    if output.exists():
+        raise ValueError('New output separate from sources required')
+    manifest=directory/'workflow.json'
+    before=digest(manifest)
+    plan_sha256=digest(plan)
     if not verify(directory)['integrity_pass']:
         raise ValueError('Workflow source or artifact evidence changed')
-    manifest=directory/'workflow.json'
     workflow=json.loads(manifest.read_text(encoding='utf-8'))
-    if workflow['inputs'].get(str(plan))!=digest(plan):
+    if workflow['inputs'].get(str(plan))!=plan_sha256:
         raise ValueError('Plan does not belong to this workflow')
     tasks={t['id']:t for t in json.loads(plan.read_text(encoding='utf-8'))['tasks']}
     lineage=[];name=native_task
@@ -122,18 +136,20 @@ def from_workflow(plan,directory,native_task,output,*,layers):
     native,sheet,schedule,allocation=lineage
     project=local_path(plan.parent,schedule[1]['project'])
     schedule_file=directory/schedule[0]/'results.json'
+    schedule_sha256=digest(schedule_file)
     saved=json.loads(schedule_file.read_text(encoding='utf-8'))
     if saved['input_sha256']!=digest(project):
         raise ValueError('Schedule project correspondence changed')
-    before=digest(manifest)
-    result=run(directory/native[0]/'reopened/source-export.dxf',directory/allocation[0]/'allocation.json',
-               project,local_path(plan.parent,sheet[1]['binding']),output,layers=layers)
-    if digest(manifest)!=before or not verify(directory)['integrity_pass']:
+    paths=(directory/native[0]/'reopened/source-export.dxf',directory/allocation[0]/'allocation.json',
+           project,local_path(plan.parent,sheet[1]['binding']))
+    result=_inspect_files([path.resolve() for path in paths], layers)
+    if (not verify(directory)['integrity_pass'] or digest(manifest)!=before
+            or digest(plan)!=plan_sha256 or digest(schedule_file)!=schedule_sha256):
         raise ValueError('Workflow changed during terminal review')
-    result.update(workflow_sha256=before,plan_sha256=digest(plan),schedule_sha256=digest(schedule_file),
+    result.update(workflow_sha256=before,plan_sha256=plan_sha256,schedule_sha256=schedule_sha256,
                   lineage=[name for name,_ in lineage],workflow_integrity_pass=True,
                   generator_sha256=digest(Path(__file__)))
-    output.write_text(json.dumps(result,indent=2),encoding='utf-8')
+    _save(output, result)
     return result
 
 

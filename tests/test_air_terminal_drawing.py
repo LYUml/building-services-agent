@@ -1,6 +1,11 @@
+import json
+from pathlib import Path
+from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 import ezdxf
-from bsa.air_terminal_drawing import inspect
+from bsa.air_terminal_drawing import from_workflow, inspect
+from bsa.cli import digest
 
 
 class TerminalDrawingTests(unittest.TestCase):
@@ -28,6 +33,43 @@ class TerminalDrawingTests(unittest.TestCase):
         self.assertEqual(r['terminal_count'],2)
         self.assertAlmostEqual(r['maximum_plan_length_m'],1)
         self.assertFalse(r['design_accepted'])
+
+    def test_inherited_report_requires_final_integrity_before_write(self):
+        runs = Path(__file__).resolve().parents[1] / 'runs'
+        runs.mkdir(exist_ok=True)
+        with TemporaryDirectory(dir=runs) as temporary:
+            root = Path(temporary).resolve()
+            workflow = root / 'workflow'
+
+            def save(path, data):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(json.dumps(data), encoding='utf-8')
+
+            drawing = workflow / 'native/reopened/source-export.dxf'
+            drawing.parent.mkdir(parents=True)
+            self.doc.saveas(drawing)
+            project = root / 'ducts.json'
+            save(project, {'tree': self.tree})
+            save(root / 'binding.json', self.binding)
+            save(workflow / 'allocation/allocation.json', self.allocation)
+            save(workflow / 'schedule/results.json', {'input_sha256': digest(project)})
+            tasks = [dict(id='allocation', kind='air_allocation'),
+                     dict(id='schedule', kind='duct_schedule', depends_on='allocation', project='ducts.json'),
+                     dict(id='sheet', kind='duct_sheet', depends_on='schedule', binding='binding.json'),
+                     dict(id='native', kind='duct_sheet_native', depends_on='sheet')]
+            plan = root / 'plan.json'
+            save(plan, {'tasks': tasks})
+            save(workflow / 'workflow.json', dict(inputs={str(plan): digest(plan)},
+                 tasks={task['id']: dict(kind=task['kind'], status='pass') for task in tasks}))
+            output = root / 'review.json'
+            with patch('bsa.workflow.verify', side_effect=[{'integrity_pass': True}, {'integrity_pass': False}]):
+                with self.assertRaisesRegex(ValueError, 'Workflow changed during terminal review'):
+                    from_workflow(plan, workflow, 'native', output, layers=self.layers)
+            self.assertFalse(output.exists())
+            with patch('bsa.workflow.verify', return_value={'integrity_pass': True}):
+                result = from_workflow(plan, workflow, 'native', output, layers=self.layers)
+            self.assertTrue(result['workflow_integrity_pass'])
+            self.assertEqual(json.loads(output.read_text(encoding='utf-8')), result)
 
     def test_same_counts_and_flows_wrong_membership(self):
         self.tree['leaf_terminals']=dict(VA=['TB'],VB=['TA'])
