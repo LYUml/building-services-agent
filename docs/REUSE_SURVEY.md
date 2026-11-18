@@ -128,6 +128,9 @@ New exports record the port gap tolerance in the BCF project name, including
 packages with zero issues. Verification returns the checked `tolerance_m` and
 `archive_tolerance_bound`. A legacy project name can still be replayed, but
 its receipt reports `archive_tolerance_bound: false`.
+The receipt includes measured and unavailable relationship counts and the
+scoped `ifc_review_status` with its reason. An archive with zero topics can
+still have a pending IFC review when there are no measurable relationships.
 The optional `bcf` extra reuses pinned IfcOpenShell BCF-XML tooling. It
 writes open topics with source and port IDs, the measured gap and tolerance,
 and a viewpoint selecting the exported owner products when available.

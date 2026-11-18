@@ -9,7 +9,7 @@ from uuid import NAMESPACE_URL, UUID, uuid5
 from zipfile import BadZipFile
 
 from . import workspace
-from .ifc_port_inventory import inventory
+from .ifc_port_inventory import inventory, review_status
 from .source_refs import file_hash
 
 
@@ -81,7 +81,8 @@ def verify(report, archive):
         raise ValueError('Pinned bcf-client 0.9.0 required')
     expected = Counter()
     project_guid = project_id(report)
-    tolerance_m = report['connection_gaps']['tolerance_m']
+    gaps = report['connection_gaps']
+    tolerance_m = gaps['tolerance_m']
     before = file_hash(archive)
     for title, description, selected, point in issue_records(report):
         view_selection = tuple(selected) if point is not None else ()
@@ -115,10 +116,13 @@ def verify(report, archive):
         raise ValueError('Invalid IFC port coordination BCF archive') from exc
     if actual != expected or file_hash(archive) != before:
         raise ValueError('Saved BCF topics or cameras differ from the IFC coordination issues')
+    status, reason = review_status(report)
     return dict(source_sha256=report['source_sha256'], bcf_sha256=before,
                 tolerance_m=tolerance_m, archive_tolerance_bound=tolerance_bound,
                 topics=sum(actual.values()),
-                unavailable_relationships=len(report['connection_gaps']['unavailable_relationships']),
+                measured_relationships=gaps['measured_relationships'],
+                unavailable_relationships=len(gaps['unavailable_relationships']),
+                ifc_review_status=status, ifc_review_reason=reason,
                 bcf_reopen_verified=True, design_accepted=False)
 
 

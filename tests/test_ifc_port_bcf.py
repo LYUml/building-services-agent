@@ -21,13 +21,14 @@ class IfcPortBcfTests(unittest.TestCase):
                 'source_sha256': file_hash(source),
                 'ports': [{'guid': 'port', 'origin_m': None, 'owner_evidence': []}],
                 'connection_gaps': {'tolerance_m': 0.001, 'separated_relationships': [],
-                                    'unavailable_relationships': []},
+                                    'measured_relationships': 0, 'unavailable_relationships': []},
                 'connection_ownership': {'conflicting_ports': ['port']},
             }
             original = root / 'original.bcf'
             result = write(report, source, original)
             self.assertEqual(result['topics'], 1)
             self.assertTrue(result['archive_tolerance_bound'])
+            self.assertEqual(result['ifc_review_status'], 'fail')
             report['connection_gaps']['tolerance_m'] = 0.002
             with self.assertRaisesRegex(ValueError, 'does not match the supplied port gap tolerance'):
                 verify(report, original)
