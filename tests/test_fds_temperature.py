@@ -36,7 +36,9 @@ class FdsTemperatureTests(unittest.TestCase):
                 result = execute(plan, out)
             self.assertEqual(result['tasks']['review']['status'], 'pending')
             self.assertTrue((out/'review/probe-review.json').is_file())
-            with patch('bsa.fds_temperature.verify', return_value={'integrity_pass': True}):
+            with patch('bsa.fds_temperature.evidence_paths', return_value=(report, table)), patch(
+                'bsa.fds_temperature.verify', return_value={'integrity_pass': True},
+            ):
                 self.assertTrue(verify(out)['integrity_pass'])
                 receipt = out/'review/probe-review.json'
                 receipt.write_text('{"integrity_pass":false}', encoding='utf-8')
@@ -47,6 +49,10 @@ class FdsTemperatureTests(unittest.TestCase):
                 workflow.write_text(json.dumps(edited), encoding='utf-8')
                 self.assertTrue(any('FDS evidence invalid' in issue for issue in verify(out)['issues']))
                 receipt.write_text(json.dumps({'integrity_pass': True}, indent=2), encoding='utf-8')
+                omitted = json.loads(original)
+                del omitted['inputs'][str(table)]
+                workflow.write_text(json.dumps(omitted), encoding='utf-8')
+                self.assertTrue(any('lacks workflow input pins' in issue for issue in verify(out)['issues']))
                 workflow.write_bytes(original)
             spec = json.loads(plan.read_bytes())
             spec['tasks'][0]['check'] = 'uniform_point_temperature'
@@ -63,7 +69,9 @@ class FdsTemperatureTests(unittest.TestCase):
                     self.assertEqual(checked['tasks']['review']['status'], status)
             del spec['tasks'][0]['check']
             plan.write_text(json.dumps(spec), encoding='utf-8')
-            with patch('bsa.fds_temperature.verify', return_value={'integrity_pass': True}):
+            with patch('bsa.fds_temperature.evidence_paths', return_value=(report, table)), patch(
+                'bsa.fds_temperature.verify', return_value={'integrity_pass': True},
+            ):
                 self.assertTrue(verify(out)['integrity_pass'])
             table.write_text('changed evidence', encoding='utf-8')
             self.assertFalse(verify(out)['integrity_pass'])

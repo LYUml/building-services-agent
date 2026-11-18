@@ -15,6 +15,11 @@ hash fields. Workflows reviewing saved probes include the runtime components
 in their input inventory. The current native uniform run reproduced the
 same temperature table, and stdio verification rejected a modified
 `libfabric.dll` with the report and output files intact.
+New reports expose all ten identities in `runtime_sha256`. Offline verification
+can reconstruct that listing for older saved probe reports. The workflow
+verifier checks that the expected evidence is present in its inventory.
+Actual run and review controls rejected workflow manifests with the
+`libfabric.dll` binding removed, even though the DLL bytes were still present.
 NIST is the source of FDS and the case. Engine files and case bytes stay in
 ignored local runs. [Release](https://github.com/firemodels/fds/releases/tag/FDS-6.11.1)
 [NIST software notice](https://github.com/firemodels/fds/blob/FDS-6.11.1/LICENSE.md)

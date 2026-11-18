@@ -2554,12 +2554,19 @@ def verify(run_directory):
                     source_root=Path(source_plan['path']).resolve().parent
                     if task['kind']=='fds_temperature_probe':
                         checked=fds_temperature.verify(receipt.parent)
+                        expected_paths=fds_temperature.evidence_paths(receipt.parent)
+                        if any(path.relative_to(root).as_posix() not in report['artifact_hashes']
+                               for path in expected_paths):
+                            raise ProjectError('FDS execution lacks workflow artifact pins')
                         if digest(local_path(source_root,original['source']))!=checked['input_sha256']:
                             raise ProjectError('FDS result differs from the plan input')
                         if checked['release_sha256'] not in report.get('runtime_inputs',{}).values():
                             raise ProjectError('FDS execution lacks the pinned host release')
                     else:
-                        checked=fds_temperature.verify(local_path(source_root,original['report']).parent)
+                        probe=local_path(source_root,original['report']).parent
+                        checked=fds_temperature.verify(probe)
+                        if any(str(path) not in report['inputs'] for path in fds_temperature.evidence_paths(probe)):
+                            raise ProjectError('FDS review lacks workflow input pins')
                         if checked!=read_json(receipt):
                             raise ProjectError('FDS review receipt differs from its source evidence')
                     expected_status,_=fds_temperature.review_status(checked,original.get('check'))

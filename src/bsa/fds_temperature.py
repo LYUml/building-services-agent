@@ -177,6 +177,7 @@ def inspect_outputs(out, case=CASE):
     report = dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
                   time_step_progression=progression, release_sha256=RELEASE_SHA256, input_sha256=INPUTS[case],
                   max_abs_error_c=errors, numerical_acceptance='not_established',
+                  runtime_sha256={name: before[name] for name in RUNTIME_HASHES},
                   artifacts_sha256={name: sha for name, sha in before.items()
                                     if name != source and name not in runtime_libraries})
     if uniform:
@@ -207,6 +208,8 @@ def verify(out):
     expected = reconstructed.copy()
     if 'case' not in saved and 'time_step_progression' not in saved:
         del expected['time_step_progression']
+    if 'runtime_sha256' not in saved:
+        del expected['runtime_sha256']
     if expected != saved or report_path.read_bytes() != raw:
         raise ProjectError('Saved FDS report differs from reconstructed evidence')
     return dict(integrity_pass=True, **reconstructed)
