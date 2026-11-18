@@ -166,7 +166,9 @@ regression run keeps its configured binaries. Save `worker_sha256` and
 `reader_sha256` from the report when recording regression evidence. The report
 compares insertion units, modelspace identity, supported geometry, block
 reference placement and text display properties. Block definitions, nested
-geometry, plot styles and PDF glyph placement require other evidence.
+geometry, plot styles and PDF glyph placement require other evidence. For
+`POINT` entities, geometry comparison covers the saved XYZ location. Rebuild
+earlier workers to include this field in their inventory.
 The CLI and MCP summaries report `geometry_compared_count` and
 `identity_only_counts_by_type`. The latter counts matched modelspace entities
 whose type and layer were checked and whose geometry is outside the comparison.

@@ -21,14 +21,14 @@ RUNTIME = ('BSA_ACADSHARP_DOTNET', 'BSA_ACADSHARP_WORKER')
 
 def test_reports_types_without_geometry_coverage(tmp_path):
     document = ezdxf.new()
-    point = document.modelspace().add_point((4, 5, 6))
+    solid = document.modelspace().add_solid([(0, 0), (1, 0), (0, 1)])
     reference = tmp_path / 'identity-only.dxf'
     document.saveas(reference)
-    row = dict(handle=point.dxf.handle, type='POINT', layer='0', geometry=None)
+    row = dict(handle=solid.dxf.handle, type='SOLID', layer='0', geometry=None)
     comparison = compare_reference([row], document.units, reference)
     assert comparison['correspondence_pass']
     assert comparison['geometry_compared_count'] == 0
-    assert comparison['identity_only_counts_by_type'] == {'POINT': 1}
+    assert comparison['identity_only_counts_by_type'] == {'SOLID': 1}
 
 
 @unittest.skipUnless(all(os.environ.get(key) for key in RUNTIME) and importlib.util.find_spec('mcp'),
@@ -73,9 +73,9 @@ class DwgReadbackTests(unittest.TestCase):
             report = json.loads(cli_report.read_bytes())
             self.assertTrue(summary['correspondence_pass'])
             self.assertEqual(summary['insunits'], 4)
-            self.assertEqual(report['comparison']['geometry_compared_count'], 4)
-            self.assertEqual(summary['geometry_compared_count'], 4)
-            self.assertEqual(summary['identity_only_counts_by_type'], {'POINT': 1})
+            self.assertEqual(report['comparison']['geometry_compared_count'], 5)
+            self.assertEqual(summary['geometry_compared_count'], 5)
+            self.assertEqual(summary['identity_only_counts_by_type'], {})
             self.assertEqual(report['source_sha256'], original)
             reader = Path(os.environ['BSA_ACADSHARP_WORKER']).with_name('ACadSharp.dll')
             self.assertEqual(report['reader_sha256'], file_hash(reader))
@@ -87,6 +87,8 @@ class DwgReadbackTests(unittest.TestCase):
                 geometry = actual[handle]['geometry']
                 if entity.dxftype() == 'LINE':
                     self.assertEqual(geometry, dict(start=list(entity.dxf.start), end=list(entity.dxf.end)))
+                elif entity.dxftype() == 'POINT':
+                    self.assertEqual(geometry, dict(location=list(entity.dxf.location)))
                 elif entity.dxftype() == 'TEXT':
                     self.assertEqual(geometry['text'], entity.dxf.text)
                     self.assertEqual(geometry['insert'], list(entity.dxf.insert))
@@ -106,6 +108,8 @@ class DwgReadbackTests(unittest.TestCase):
             changed = ezdxf.readfile(reference)
             line = changed.modelspace().query('LINE')[0]
             line.dxf.end += (1, 0, 0)
+            point = changed.modelspace().query('POINT')[0]
+            point.dxf.location += (0, 0, 1)
             insert = changed.modelspace().query('INSERT')[0]
             insert.dxf.rotation += 15
             label = changed.modelspace().query('TEXT')[0]
@@ -119,7 +123,7 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
             affected_fields = {line.dxf.handle: ['end'], insert.dxf.handle: ['rotation_angle_rad'],
-                               label.dxf.handle: ['rotation_angle_rad']}
+                               label.dxf.handle: ['rotation_angle_rad'], point.dxf.handle: ['location']}
             self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
                 dict(handle=handle, reason='geometry_differs', fields=affected_fields[handle])
                 for handle in sorted(affected_fields)

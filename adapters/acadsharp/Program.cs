@@ -81,6 +81,10 @@ static object? Geometry(Entity entity) => entity switch
         start = new[] { line.StartPoint.X, line.StartPoint.Y, line.StartPoint.Z },
         end = new[] { line.EndPoint.X, line.EndPoint.Y, line.EndPoint.Z },
     },
+    Point point => new
+    {
+        location = new[] { point.Location.X, point.Location.Y, point.Location.Z },
+    },
     Insert insert => new
     {
         block_name = insert.Block.Name,

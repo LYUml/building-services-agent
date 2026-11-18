@@ -15,6 +15,8 @@ def dxf_geometry(entity):
     kind = entity.dxftype()
     if kind == 'LINE':
         return dict(start=list(dxf.start), end=list(dxf.end))
+    if kind == 'POINT':
+        return dict(location=list(dxf.location))
     if kind == 'TEXT':
         return dict(text=dxf.text, insert=list(dxf.insert), height=dxf.height, width_factor=dxf.width,
                     rotation_angle_rad=math.radians(dxf.rotation), oblique_angle_rad=math.radians(dxf.oblique),
