@@ -14,6 +14,14 @@ agreed appendix and identify whether each case was adopted.
 
 ## Verify connections and placement after a layout change
 
+When the delivery specifies IFC properties or classifications, run
+`bsa ids-check <requirements.ids> <saved.ifc> --out <fresh-directory>` with the
+`ids` extra installed. In a workflow submitted through `bsa_execute_workflow`,
+use an `ids_check` task and require its pass for dependent deliverables.
+Use source-backed applicability and require applicable objects where the brief
+requires them. Review the IDS report alongside the physical port, geometry
+and placement checks below. IDS evaluates declared information requirements.
+
 Use this review for suspected gaps, wrong connections, misplaced equipment or
 revised routing. Bind the adopted source layout, equipment and port identities,
 expected connections and final artifact revision first. Record drawing units and
