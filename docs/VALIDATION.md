@@ -12,6 +12,13 @@ position. The Revit test assembly builds against the installed 2027 API.
 Revit execution, native model creation and saved reopening remain pending
 in an authorized host.
 
+At `bc61c33`, a combined run with AutoCAD Core Console, ACadSharp schema v2
+and rvt 0.25.0 passed 57 tests and 26 subtests across DWG, IFC water and duct
+geometry, and Revit offline workflows. IfcMCP was skipped in that run and
+passed in its dedicated runtime. The four mixed air/water recovery tests
+passed separately at `baf74c2`, including forged handoff rejection and early
+stopping when no fan candidate meets the declared criteria.
+
 ## IFC water fitting binding
 
 On the same Windows host and Python environment, the saved finite elbow
