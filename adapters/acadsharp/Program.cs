@@ -27,6 +27,7 @@ try
         schema = "bsa.acadsharp-modelspace/1",
         source_sha256 = before,
         reader_version = "3.8.35",
+        insunits = (int)document.Header.InsUnits,
         entities,
         native_autocad_executed = false,
         design_accepted = false,

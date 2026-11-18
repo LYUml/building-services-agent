@@ -51,13 +51,16 @@ def equal_geometry(actual, expected, field=''):
     return type(actual) is type(expected) and actual == expected
 
 
-def compare_reference(entities, reference):
+def compare_reference(entities, insunits, reference):
     import ezdxf
 
-    expected = {entity.dxf.handle: entity for entity in ezdxf.readfile(reference).modelspace()}
+    document = ezdxf.readfile(reference)
+    expected = {entity.dxf.handle: entity for entity in document.modelspace()}
     actual = {row['handle']: row for row in entities}
     differences = [dict(handle=handle, reason='missing_in_dwg') for handle in sorted(expected.keys() - actual.keys())]
     differences.extend(dict(handle=handle, reason='missing_in_dxf') for handle in sorted(actual.keys() - expected.keys()))
+    if document.units != insunits:
+        differences.append(dict(reason='drawing_units_differ', dwg_insunits=insunits, dxf_insunits=document.units))
     geometry_count = 0
     for handle in sorted(actual.keys() & expected.keys()):
         row, entity = actual[handle], expected[handle]
@@ -103,7 +106,7 @@ def run(source, out, reference_dxf=None):
     if (not isinstance(result, dict) or result.get('schema') != 'bsa.acadsharp-modelspace/1'
             or result.get('source_sha256') != source_hash or result.get('reader_version') != '3.8.35'
             or result.get('native_autocad_executed') is not False or result.get('design_accepted') is not False
-            or not isinstance(result.get('entities'), list)):
+            or type(result.get('insunits')) is not int or not isinstance(result.get('entities'), list)):
         raise ValueError('ACadSharp report identity or scope differs from the selected input')
     entities = result['entities']
     if any(not isinstance(row, dict) or set(row) != {'handle', 'type', 'layer', 'geometry'}
@@ -113,7 +116,7 @@ def run(source, out, reference_dxf=None):
     result['worker_sha256'] = worker_hash
     summary = {}
     if reference is not None:
-        comparison = compare_reference(entities, reference)
+        comparison = compare_reference(entities, result['insunits'], reference)
         result['comparison'] = dict(reference_sha256=reference_hash, **comparison)
         summary = dict(correspondence_pass=comparison['correspondence_pass'],
                        difference_count=len(comparison['differences']))
@@ -126,5 +129,6 @@ def run(source, out, reference_dxf=None):
     with out.open('x', encoding='utf-8') as stream:
         stream.write(report)
     return dict(report=str(out), report_sha256=file_hash(out), source_sha256=source_hash,
-                entity_count=len(entities), counts=dict(sorted(Counter(row['type'] for row in entities).items())),
+                entity_count=len(entities), insunits=result['insunits'],
+                counts=dict(sorted(Counter(row['type'] for row in entities).items())),
                 native_autocad_executed=False, design_accepted=False, **summary)

@@ -57,6 +57,7 @@ class DwgReadbackTests(unittest.TestCase):
             self.assertEqual(cli_report.read_bytes(), mcp_report.read_bytes())
             report = json.loads(cli_report.read_bytes())
             self.assertTrue(summary['correspondence_pass'])
+            self.assertEqual(summary['insunits'], 4)
             self.assertEqual(report['comparison']['geometry_compared_count'], 4)
             self.assertEqual(report['source_sha256'], original)
             expected = {e.dxf.handle: e for e in ezdxf.readfile(FIXTURE / 'source-export.dxf').modelspace()}
@@ -86,6 +87,7 @@ class DwgReadbackTests(unittest.TestCase):
             line.dxf.end += (1, 0, 0)
             insert = changed.modelspace().query('INSERT')[0]
             insert.dxf.rotation += 15
+            changed.units = 6
             changed_dxf, difference_report = output / 'changed.dxf', output / 'differences.json'
             changed.saveas(changed_dxf)
             mismatch = subprocess.run(command[:-4] + ['--out', str(difference_report),
@@ -93,6 +95,6 @@ class DwgReadbackTests(unittest.TestCase):
                                       cwd=ROOT, env=env, capture_output=True, check=False)
             self.assertEqual(mismatch.returncode, 2, mismatch.stderr)
             comparison = json.loads(difference_report.read_bytes())['comparison']
-            self.assertEqual(comparison['differences'], [
+            self.assertEqual(comparison['differences'], [dict(reason='drawing_units_differ', dwg_insunits=4, dxf_insunits=6)] + [
                 dict(handle=handle, reason='geometry_differs') for handle in sorted((line.dxf.handle, insert.dxf.handle))
             ])
