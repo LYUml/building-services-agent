@@ -35,7 +35,7 @@ class CommonDataMCPTests(unittest.IsolatedAsyncioTestCase):
         async with stdio_client(params) as streams:
             async with ClientSession(*streams) as session:
                 await session.initialize()
-                self.assertEqual(len((await session.list_tools()).tools), 42)
+                self.assertEqual(len((await session.list_tools()).tools), 43)
 
                 async def call(name, arguments):
                     response = await session.call_tool(name, arguments,

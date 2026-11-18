@@ -1,3 +1,17 @@
+## Offline Revit inventory access
+
+The main CLI and MCP tool reuse the existing saved-inventory diagnostic and
+pinned MCP SDK. An external selected-workspace test uses synthetic evidence
+through the actual CLI and stdio worker. It detects a 20 mm connector
+displacement, compares the reports byte-for-byte, and rejects output reuse,
+path escape and stale model bytes. No new dependency is required.
+
+Autodesk documents that desktop Revit has no standalone Core Console. APS
+Automation for Revit is the supported headless service and requires a separate
+verified cloud setup. Native add-in loading and saved RVT execution remain
+pending on this host.
+[Autodesk Support](https://www.autodesk.com/support/technical/article/caas/sfdcarticles/sfdcarticles/Cannot-find-the-RevitCoreConsole-exe-program-in-Revit.html)
+
 ## Scoped native IFC triangle conversion (2026-11-18, remote recovery verified)
 
 The public scripts/profile_native_ifc.py reuses the existing synthetic saved IFC

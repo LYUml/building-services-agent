@@ -60,6 +60,14 @@ def create_server(*,execute_options=None,pdftoppm=None,report_font=None):
     write=ToolAnnotations(readOnlyHint=False,destructiveHint=False,idempotentHint=False,openWorldHint=False)
 
     @server.tool(annotations=write)
+    def bsa_check_revit_inventory(
+        inventory:str,model:str,out:str,
+        tolerance_m:Annotated[float,Field(strict=True,gt=0,allow_inf_nan=False)],
+    )->dict[str,Any]:
+        """Diagnose saved pipe/fitting connector evidence bound to exact RVT bytes. Writes a fresh JSON report without starting Revit."""
+        return invoke('bsa.revit_connectivity.run',local(inventory),local(model),local(out),tolerance_m)
+
+    @server.tool(annotations=write)
     def bsa_draw_document(project:str,out:str)->dict[str,Any]:
         """Author a declared general 2D document with host AutoCAD; save/reopen DWG and plot PDF. Layout/visual/engineering approval remain separate."""
         if options.get('autocad') is None:raise ValueError('Explicit host AutoCAD startup configuration required')

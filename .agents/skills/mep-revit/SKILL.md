@@ -26,12 +26,17 @@ The remaining product goal includes connected systems, analysis, schedules, draw
 `scripts/inspect_revit.ps1` checks installation metadata. `scripts/prepare_revit_addin.ps1` prepares a local manifest/request; it does not install or execute it. The C# `InventoryCommand` requires the matching saved repository-local RVT without unsaved changes, and creates a new JSON report. Use its current output schema: the older Python/Dynamo inventory lacks newer fitting, provenance and revision fields.
 
 ```powershell
-.venv/Scripts/python -m bsa.revit_connectivity --inventory runs/<capture>/inventory.json --model runs/<model>/test.rvt --tolerance-m <declared-metres> --out runs/<new-check>/diagnosis.json
+.venv/Scripts/bsa.exe revit-inventory-check --inventory runs/<capture>/inventory.json --model runs/<model>/test.rvt --tolerance-m <declared-metres> --out runs/<new-check>/diagnosis.json
 ```
 
 Choose and record a diagnostic tolerance appropriate to the comparison; it is not a regulation or manufacturer's installation allowance. The diagnostic binds the inventory to saved-model bytes. It checks both directions of each reference, physical flags, domains, endpoint positions and original creation intent. A matching file hash does not prove native execution, authentic measurements or engineering validity.
 
 Inspect `issues`, `pending`, `observed_open_ports`, `revision_checks` and the explicit scope. Missing equipment/accessory targets and absent provenance remain unresolved. Logical connections do not prove physical joins. Coincident connector origins do not establish flow paths inside a fitting. Open ends require sourced terminal intent; do not invent caps, outlets or loads to clear them.
+
+MCP `bsa_check_revit_inventory` takes `inventory`, `model`, `out` and positive
+`tolerance_m`. Use host-project-relative paths with a fresh output file. Read
+`diagnostic_status` even when the tool returns successfully. The CLI exits 2
+for a pending or failing diagnosis. Both entry points work offline.
 
 Workflow kind `revit_inventory_check` takes `inventory`, `model` and `tolerance_m`. Put its ID in downstream `requires_pass`. Its status is fail or pending until broader acceptance exists; exit code 2 is expected for unresolved checks. Use `bsa.workflow_status` to diagnose dependencies, not to overwrite outcomes. Preserving unresolved requirements is essential, but do not make every future Revit task depend on this deliberately incomplete prototype when a different verified adapter can meet the requirement.
 

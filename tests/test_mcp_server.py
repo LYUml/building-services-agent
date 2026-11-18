@@ -23,6 +23,49 @@ ROOT=Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(importlib.util.find_spec('mcp'),'requires optional pinned MCP SDK')
 class MCPServerTests(unittest.IsolatedAsyncioTestCase):
+    async def test_revit_inventory_cli_and_stdio(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            model=root/'synthetic.rvt'
+            model.write_bytes(b'Synthetic RVT identity only')
+            inventory=dict(document_path=str(model),saved_rvt_sha256=hashlib.sha256(model.read_bytes()).hexdigest(),
+                units='metres',pipes=[],fittings=[])
+            for kind,owner,peer,x in (('pipes','pipe','elbow',0),('fittings','elbow','pipe',0.02)):
+                reference=dict(owner_unique_id=peer,connector_id=1,domain='DomainPiping',
+                    connector_type='End',origin_m=[0.02-x,0,0],api_connected_to=True,
+                    reciprocal_reference=True,separation_m=0.02)
+                inventory[kind].append(dict(unique_id=owner,connectors=[dict(id=1,
+                    domain='DomainPiping',connector_type='End',origin_m=[x,0,0],
+                    physically_connected=True,references=[reference])]))
+            (root/'inventory.json').write_text(json.dumps(inventory),encoding='utf-8')
+            env={**os.environ,'BSA_PROJECT_ROOT':str(root)}
+            cmd=[sys.executable,'-m','bsa.cli','revit-inventory-check','--inventory',str(root/'inventory.json'),
+                '--model',str(model),'--out',str(root/'cli.json'),'--tolerance-m','0.001']
+            cli=subprocess.run(cmd,cwd=ROOT,env=env,capture_output=True,text=True,check=False)
+            self.assertEqual(cli.returncode,2,cli.stderr)
+            expected=json.loads(cli.stdout)
+            self.assertEqual(expected['diagnostic_status'],'fail')
+            self.assertTrue(all('endpoint_separation' in row['reasons'] for row in expected['issues']))
+            self.assertFalse(expected['design_accepted'])
+            params=StdioServerParameters(command=sys.executable,args=['-m','bsa.mcp_server'],cwd=str(ROOT),env=env)
+            async with stdio_client(params) as streams:
+                async with ClientSession(*streams) as session:
+                    await session.initialize()
+                    args=dict(inventory='inventory.json',model=model.name,out='mcp.json',tolerance_m=0.001)
+                    tool='bsa_check_revit_inventory'
+                    result=await session.call_tool(tool,args)
+                    self.assertFalse(result.isError,str(result.content))
+                    self.assertEqual(result.structuredContent,expected)
+                    self.assertEqual((root/'cli.json').read_bytes(),(root/'mcp.json').read_bytes())
+                    self.assertTrue((await session.call_tool(tool,args)).isError)
+                    bad=await session.call_tool(tool,{**args,'out':'../escape.json'})
+                    self.assertTrue(bad.isError)
+                    model.write_bytes(b'Changed synthetic identity')
+                    stale=await session.call_tool(tool,{**args,'out':'stale.json'})
+                    self.assertTrue(stale.isError)
+                    self.assertIn('does not match',stale.content[0].text)
+                    self.assertFalse((root/'stale.json').exists())
+
     async def test_real_stdio_source_to_engineering_and_workspace_controls(self):
         persistent=os.environ.get('BSA_MCP_TRIAL_OUT')
         if persistent:
@@ -41,7 +84,8 @@ class MCPServerTests(unittest.IsolatedAsyncioTestCase):
                     async with ClientSession(read,write) as session:
                         initialized=(await session.initialize()).model_dump(mode='json')
                         tools=(await session.list_tools()).tools
-                        self.assertEqual(len(tools),42)
+                        self.assertEqual(len(tools),43)
+                        self.assertIn('bsa_check_revit_inventory', {tool.name for tool in tools})
                         self.assertTrue({'bsa_draw_document','bsa_inspect_drawing_document'} <= {tool.name for tool in tools})
                         for tool in tools:
                             self.assertFalse({'autocad','command','project_root'} & set(tool.inputSchema.get('properties',{})))

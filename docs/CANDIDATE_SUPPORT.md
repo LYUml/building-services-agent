@@ -48,14 +48,15 @@ with platform-specific constraints. Its exact scope and limits remain explicit.
 
 ## MCP coverage
 
-The current actual SDK catalogue has42tools. The following groups cover all
-42; numerical engines remain shared with CLI/workflow adapters rather than
+The current SDK catalogue has 43 tools. The following groups cover all
+43. Numerical engines remain shared with CLI/workflow adapters rather than
 duplicated for MCP. Tool schemas and full descriptions are available through
 the SDK catalogue. The committed reference read is also an MCP resource.
 
 | Area | MCP tools |
 |---|---|
 | General drawing | bsa_draw_document, bsa_inspect_drawing_document |
+| Saved Revit inventory | bsa_check_revit_inventory |
 | Native network and fittings | bsa_run_native_network_analysis, bsa_run_native_fitting_analysis, bsa_inspect_native_network_analysis, bsa_inspect_native_fitting_analysis, bsa_list_native_fitting_requests, bsa_read_native_fitting_request |
 | Native network delivery | bsa_run_native_network_delivery, bsa_inspect_native_network_delivery, bsa_run_tagged_network_delivery, bsa_inspect_tagged_network_delivery |
 | Pressure evidence | bsa_run_pressure_evidence_ledger, bsa_inspect_pressure_evidence_ledger, bsa_list_pressure_evidence_gaps, bsa_read_outlet_pressure_evidence |
@@ -82,7 +83,7 @@ No computer-use mechanism is needed by these MCP adapter execution paths.
 AutoCAD work uses explicit host native processes and saved-data adapters.
 Software installation/licensing, file access, startup executable paths, font and
 plotting configuration are host preparation. External tools such as K-Select
-retain their own integration scope; the42-tool catalogue does not imply their
+retain their own integration scope. The catalogue does not imply their
 GUI or API is controlled by this server. Source interpretation, visual inspection,
 missing manufacturer facts and engineering decisions still require the host AI
 or a reviewer; they are not silently approved by tool success.

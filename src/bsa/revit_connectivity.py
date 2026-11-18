@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .engine import ProjectError
 from .revit_revision import audit_pipe
+from . import workspace
 
 
 def diagnose(inventory, tolerance_m):
@@ -127,10 +128,9 @@ def diagnose(inventory, tolerance_m):
 
 
 def run(inventory, model, out, tolerance_m):
-    root = Path(__file__).resolve().parents[2]
     paths = [Path(p).resolve() for p in (inventory, model, out)]
-    if any(not p.is_relative_to(root) for p in paths) or paths[2].exists():
-        raise ProjectError('Use repository-local artifacts and a new output path')
+    if not all(workspace.allowed(p) for p in paths) or paths[2].exists():
+        raise ProjectError('Use permitted workspace artifacts and a new output path')
     raw, model = paths[0].read_bytes(), paths[1].read_bytes()
     data = json.loads(raw)
     digest = lambda b: hashlib.sha256(b).hexdigest()
@@ -146,12 +146,16 @@ def run(inventory, model, out, tolerance_m):
     return result
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__)
+def add_arguments(parser):
     parser.add_argument('--inventory', type=Path, required=True)
     parser.add_argument('--model', type=Path, required=True)
     parser.add_argument('--tolerance-m', type=float, required=True)
     parser.add_argument('--out', type=Path, required=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_arguments(parser)
     args = parser.parse_args()
     result = run(args.inventory, args.model, args.out, args.tolerance_m)
     print(json.dumps(result))

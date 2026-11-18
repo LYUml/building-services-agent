@@ -79,6 +79,9 @@ def main():
     configure_knowledge(sub)
     from .changes.cli import configure as configure_changes
     configure_changes(sub)
+    from . import revit_connectivity
+    revit_connectivity.add_arguments(sub.add_parser(
+        'revit-inventory-check', help='Diagnose a saved Revit pipe and fitting inventory'))
     group=sub.add_parser('engineering-data',help='Export or verify a source-bound common data view')
     commands=group.add_subparsers(dest='data_command',required=True)
     task=commands.add_parser('context');task.add_argument('--name',required=True);task.add_argument('--scenario',required=True);task.add_argument('--out',type=Path,required=True)
@@ -149,6 +152,9 @@ def main():
     s.add_argument('--moosas-deps',type=Path)
     a=parser.parse_args()
     try:
+        if a.command=='revit-inventory-check':
+            result=revit_connectivity.run(a.inventory,a.model,a.out,a.tolerance_m)
+            print(json.dumps(result,indent=2));return 2
         if a.command=='changes':
             from .changes.cli import dispatch
             print(json.dumps(dispatch(a),indent=2));return 0
