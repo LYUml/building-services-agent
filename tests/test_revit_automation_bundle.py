@@ -3,13 +3,34 @@ import json
 from pathlib import Path, PurePosixPath
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import patch
 from xml.etree import ElementTree
 from zipfile import ZipFile
 
-from scripts.prepare_revit_automation_bundle import prepare
+from scripts.prepare_revit_automation_bundle import confirm_engine, prepare
 
 
 class RevitAutomationBundleTests(unittest.TestCase):
+    def test_engine_confirmation_requires_exact_engine_identity(self):
+        with patch('scripts.prepare_revit_automation_bundle.HTTPSConnection') as factory:
+            connection = factory.return_value
+            response = connection.getresponse.return_value
+            response.status = 200
+            engine = 'Autodesk.Revit+2027'
+            response.read.return_value = json.dumps({
+                'id': engine, 'version': 1, 'productVersion': '2027', 'description': 'test',
+            }).encode()
+            self.assertEqual(confirm_engine(engine, 'synthetic-token'),
+                             {'id': engine, 'version': 1, 'productVersion': '2027'})
+            self.assertEqual(connection.request.call_args.args, ('GET', '/da/us-east/v3/engines/Autodesk.Revit%2B2027'))
+            response.status = 401
+            with self.assertRaisesRegex(ValueError, 'HTTP 401'):
+                confirm_engine(engine, 'synthetic-token')
+            response.status = 200
+            response.read.return_value = b'{"id":"Autodesk.Revit+2026","version":1,"productVersion":"2026"}'
+            with self.assertRaisesRegex(ValueError, 'did not identify'):
+                confirm_engine(engine, 'synthetic-token')
+
     def test_write_bundle_has_distinct_entrypoint_and_transfers(self):
         runs = Path(__file__).resolve().parents[1] / 'runs'
         with TemporaryDirectory(dir=runs) as temporary:

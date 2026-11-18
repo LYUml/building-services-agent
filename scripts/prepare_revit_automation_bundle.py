@@ -1,9 +1,12 @@
 """Package the local Revit Automation build for offline review."""
 import argparse
 import hashlib
+from http.client import HTTPSConnection
 import json
+import os
 from pathlib import Path
 import re
+from urllib.parse import quote
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 
@@ -46,8 +49,25 @@ def inventory_request(model, runs):
     return {'SavedRvtSha256': sha256}
 
 
+def confirm_engine(engine, access_token):
+    connection = HTTPSConnection('developer.api.autodesk.com', timeout=15)
+    try:
+        connection.request('GET', '/da/us-east/v3/engines/' + quote(engine, safe=''),
+                           headers={'Authorization': 'Bearer ' + access_token, 'Accept': 'application/json'})
+        response = connection.getresponse()
+        if response.status != 200:
+            raise ValueError(f'APS engine lookup returned HTTP {response.status}')
+        data = json.loads(response.read(65536))
+    finally:
+        connection.close()
+    if (not isinstance(data, dict) or data.get('id') != engine
+            or not isinstance(data.get('productVersion'), str) or type(data.get('version')) is not int):
+        raise ValueError('APS engine response did not identify the selected engine and version')
+    return {key: data[key] for key in ('id', 'productVersion', 'version')}
+
+
 def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
-            operation='inventory', pipe_request=None):
+            operation='inventory', pipe_request=None, check_engine=False):
     if operation not in ('inventory', 'create-pipe'):
         raise ValueError('Unsupported Automation operation')
     writing = operation == 'create-pipe'
@@ -74,6 +94,12 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
             raise ValueError('Pipe request does not match the selected saved RVT')
     elif request is not None:
         request_bytes = json.dumps(request, indent=2).encode('utf-8')
+    confirmed = None
+    if check_engine:
+        token = os.environ.get('APS_ACCESS_TOKEN')
+        if activity is None or not token:
+            raise ValueError('Engine confirmation requires Activity arguments and APS_ACCESS_TOKEN in the environment')
+        confirmed = confirm_engine(engine, token)
 
     prefix = 'Bsa.Revit.Automation.bundle'
     package = b'''<ApplicationPackage Name="Bsa.Revit.Automation" AppVersion="0.1.0">
@@ -126,6 +152,8 @@ def prepare(assembly, output, *, engine=None, bundle_id=None, model=None,
         activity_bytes = json.dumps(activity, indent=2).encode('utf-8')
         (output / 'activity.json').write_bytes(activity_bytes)
         receipt['activity_sha256'] = hashlib.sha256(activity_bytes).hexdigest()
+    if confirmed is not None:
+        receipt['confirmed_engine'] = confirmed
     if request is not None:
         if inventory_request(model, runs) != request:
             raise ValueError('RVT changed during preparation')
@@ -147,6 +175,10 @@ if __name__ == '__main__':
     parser.add_argument('--operation', choices=('inventory', 'create-pipe'), default='inventory')
     parser.add_argument('--model', help='Local RVT fixture to hash for the inventory request')
     parser.add_argument('--pipe-request', help='Prepared pipe request for the selected RVT fixture')
+    parser.add_argument('--check-engine', action='store_true', help='Confirm engine availability with a read-only APS call')
     args = parser.parse_args()
-    print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
-                  operation=args.operation, pipe_request=args.pipe_request))
+    try:
+        print(prepare(args.assembly, args.out, engine=args.engine, bundle_id=args.bundle_id, model=args.model,
+                      operation=args.operation, pipe_request=args.pipe_request, check_engine=args.check_engine))
+    except (OSError, ValueError) as error:
+        parser.exit(2, f'{error}\n')

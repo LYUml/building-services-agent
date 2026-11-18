@@ -53,6 +53,10 @@ the inventory Activity JSON. The command line and three required transfer
 parameters follow the [Autodesk Activity tutorial](https://get-started.aps.autodesk.com/tutorials/design-automation/define-activity/).
 The local preparation receipt pins the Activity bytes. Engine and alias
 availability must be checked with authenticated APS before deployment.
+Add `--check-engine` to check the selected engine in the US East catalogue
+before writing the staging directory. The command reads the application
+token from `APS_ACCESS_TOKEN` and records the returned engine ID and build
+version. [Autodesk engine lookup](https://aps.autodesk.com/en/docs/design-automation/v3/reference/http/engines-id-GET)
 Actual work-item execution remains pending.
 
 The Automation build also contains the separate `AutomationCreatePipe` entry
