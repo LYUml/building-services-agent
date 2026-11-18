@@ -8,6 +8,13 @@ installer. Avoiding the alternate solver and development utilities reduced
 the extracted runtime from 260,703,504 to 134,639,216 bytes per new run.
 The native uniform and interpolation reruns reproduced their prior
 temperature table hashes. Existing runs remain readable by the verifier.
+The extraction list now pins ten solver, launcher and runtime-library files
+individually and totals 132,120,432 bytes. The verifier checks those files
+even when the saved report contains only the original solver and launcher
+hash fields. Workflows reviewing saved probes include the runtime components
+in their input inventory. The current native uniform run reproduced the
+same temperature table, and stdio verification rejected a modified
+`libfabric.dll` with the report and output files intact.
 NIST is the source of FDS and the case. Engine files and case bytes stay in
 ignored local runs. [Release](https://github.com/firemodels/fds/releases/tag/FDS-6.11.1)
 [NIST software notice](https://github.com/firemodels/fds/blob/FDS-6.11.1/LICENSE.md)

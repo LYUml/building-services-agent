@@ -26,11 +26,18 @@ SUCCESS = f'STOP: FDS completed successfully (CHID: {CASE})'
 CONSOLE_STEP = re.compile(r'^\s*Time Step:\s*(\d+), Simulation Time:\s*([\d.]+) s\s*$', re.M)
 ENGINE = 'firemodels/FDS6/bin/fds.exe'
 LAUNCHER = 'firemodels/FDS6/bin/mpi/mpiexec.exe'
-OPENMP_LIBRARY = 'firemodels/FDS6/bin/libiomp5md.dll'
 MPI_DIRECTORY = 'firemodels/FDS6/bin/mpi/'
 RUNTIME_HASHES = {
     ENGINE: '1dd7468130e403f18b9a45ec5134662fe9738ea6a12b0f600c5f91c16428312f',
     LAUNCHER: '3af7741d27090c13a150ff575dc216c268b06a174d0770fc07d9e6756db0dc92',
+    'firemodels/FDS6/bin/libiomp5md.dll': 'd9d66ed25f1a0ea725fa3a41b22cfd5d182c19dbe4771d9c90ca02ad7466f6a1',
+    MPI_DIRECTORY+'cpuinfo.exe': '142b0b8bf07a4fc104b26f1f15b0c36baa8b1f77233c189f5199b76e71da7d9c',
+    MPI_DIRECTORY+'hydra_bstrap_proxy.exe': 'eb90011bd2b0520c16daa7bf54bbfaabcb13c87855b93494db88de81c11b1502',
+    MPI_DIRECTORY+'hydra_pmi_proxy.exe': '11bf24158071b692fd3bc858eab8ebbcb0736658bdc609ccd611a0df2faf74c0',
+    MPI_DIRECTORY+'hydra_service.exe': '70cd8beee6447dfa1663733ee62f705ed6bf578b277adae818659ea0a5a8ad3c',
+    MPI_DIRECTORY+'impi.dll': '670dba3211761edb82eb2764d33c4151221a1e98cb3131d5f86f6519fc6ef840',
+    MPI_DIRECTORY+'libfabric.dll': '139f863c1f69c8af2a1ee6093b5bb8da0db07652e026b50eb8d7c4b75a97b6d8',
+    MPI_DIRECTORY+'libmpi_ilp64.dll': '9e997a70ac6f81f6e81c76b9a64ab1719562a8b7205367f0db4d51665e332fb1',
 }
 MISSING_RELEASE = 'Host FDS release not supplied; temperature probe not executed'
 UNPINNED_INPUT = 'Unexpected FDS input SHA-256'
@@ -105,9 +112,10 @@ def run(release, source, out):
             raise ValueError('Unexpected FDS release SHA-256')
         out.mkdir(parents=True)
         with ZipFile(stream) as archive:
-            for entry in archive.namelist():
-                if entry in (ENGINE, OPENMP_LIBRARY) or entry.startswith(MPI_DIRECTORY):
-                    archive.extract(entry, out)
+            for entry in RUNTIME_HASHES:
+                archive.extract(entry, out)
+    if any(digest(out/name) != sha for name, sha in RUNTIME_HASHES.items()):
+        raise ProjectError('Extracted FDS runtime differs from the pinned release')
     work = out/'case'
     work.mkdir()
     case_file = work/f'{case}.fds'
@@ -139,7 +147,7 @@ def output_paths(out, case):
     names = (LAUNCHER, ENGINE, 'case/console.log', f'case/{case}.out',
              f'case/{case}_git.txt', f'case/{case}_steps.csv',
              f"case/{case}_{'devc' if case == UNIFORM_CASE else 'line'}.csv", f'case/{case}.fds')
-    paths = {name: (out/name).resolve() for name in names}
+    paths = {name: (out/name).resolve() for name in dict.fromkeys((*names, *RUNTIME_HASHES))}
     if any(not path.is_relative_to(out) or not path.is_file() for path in paths.values()):
         raise ProjectError('Missing FDS evidence or artifact path escapes the run')
     return paths
@@ -147,11 +155,14 @@ def output_paths(out, case):
 
 def inspect_outputs(out, case=CASE):
     paths = output_paths(out, case)
-    _, _, log, native, version, steps, table, source = paths
+    _, _, log, native, version, steps, table, source, *runtime_libraries = paths
     uniform = case == UNIFORM_CASE
     before = {name: digest(path) for name, path in paths.items()}
-    if before[source] != INPUTS[case] or any(before[name] != sha for name, sha in RUNTIME_HASHES.items()):
-        raise ProjectError('FDS saved input or runtime differs from the pinned release')
+    if before[source] != INPUTS[case]:
+        raise ProjectError('FDS saved case differs from the pinned input')
+    for name, sha in RUNTIME_HASHES.items():
+        if before[name] != sha:
+            raise ProjectError('FDS saved runtime differs from the pinned release: '+name)
     log, native, version, steps, table = (paths[name] for name in (log, native, version, steps, table))
     console = log.read_text(errors='replace')
     success = f'STOP: FDS completed successfully (CHID: {case})'
@@ -166,7 +177,8 @@ def inspect_outputs(out, case=CASE):
     report = dict(engine=VERSION, native_completed=True, final_simulation_s=progression['final_simulation_s'],
                   time_step_progression=progression, release_sha256=RELEASE_SHA256, input_sha256=INPUTS[case],
                   max_abs_error_c=errors, numerical_acceptance='not_established',
-                  artifacts_sha256={name: sha for name, sha in before.items() if name != source})
+                  artifacts_sha256={name: sha for name, sha in before.items()
+                                    if name != source and name not in runtime_libraries})
     if uniform:
         report.update(case=case, expected_temperature_c=22.5, point_temperature_check_pass=not any(errors.values()))
     return report
