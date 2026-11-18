@@ -77,6 +77,20 @@ selected governing and failed rows against the bound calculation or native
 exports. Keep supplementary cases clearly identified so their values do not
 replace the adopted values in the report, schedules, or drawings.
 
+When workspace reorganization changes artifact paths, retain the original
+receipt and use an explicit relocation index to find the current file.
+Verify the current bytes against the original receipt before reusing a
+saved reopen, native calculation or plot result. Treat a path that cannot
+be resolved or a hash mismatch as unresolved. For adopted and comparison
+models, bind each approved scenario to its own saved native model, raw
+calculation output and report claims.
+
+Determine the review stage from the artifacts present. Requirements notes,
+extracted brief pages and reference downloads support intake. Simulation
+review requires an executed model, saved outputs and case-specific checks.
+An empty workspace provides no project evidence. Record missing stages
+before assigning a delivery status.
+
 When an audit flags a conditional engineering result, trace the controlling
 assumption or manufacturer quantity to its source. For electrical protection,
 for example, verify that a device operating characteristic came from the
