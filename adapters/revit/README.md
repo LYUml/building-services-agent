@@ -99,6 +99,14 @@ and matches the two piping connector origins to separate curve
 ends within the declared tolerance. It does not authenticate APS
 execution, establish system connectivity or accept the design.
 
+Current creation receipts include the native connector IDs and origins
+captured before commit. Reopen verification reports the creation and reopened
+coordinates and their distance per ID in `creation_connector_readback`.
+Earlier receipts without these coordinates leave `creation_connector_matches`
+false. The current DLL passed local bundle verification with a Revit 2027
+sample for inventory and a hash-bound synthetic fixture for pipe creation.
+Both verifications were offline.
+
 Add `--model runs/<test-fixture>.rvt` to generate the hash-bound
 `inventory-request.json` beside the AppBundle. The selected fixture stays
 at its original path and outside the ZIP. Use those same RVT bytes as the
