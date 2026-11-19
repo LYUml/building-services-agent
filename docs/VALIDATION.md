@@ -1,5 +1,16 @@
 # Verification record
 
+## Signed Horizun deployment on Revit 2027
+
+The authorized Horizun 4.0.1 installation completed with exit code 0 and
+its receipt reported `fully_installed=yes` for Revit 2027. Windows verified
+the signatures of the installed server and Revit DLL. The Revit journal
+confirmed signed add-in startup and identified the isolated plumbing RVT
+being opened. The bridge reached Revit, but reported that a model-opening
+dialog with zero errors and 39 warnings prevented its health command from
+starting. Active-document verification, connector writes and saved reopening
+remain pending. The original model was outside the test write scope.
+
 ## Saved IFC port and BCF fault controls
 
 An isolated BSE3227 assembly had two measurable declared connections and
