@@ -14,18 +14,21 @@ and inventoried 3,051 host pipes.
 
 A dry-run disconnect rolled back and a fresh query confirmed that both ends
 still referenced each other. A committed disconnect then removed the reciprocal
-references between pipe 1380064 port 0 and fitting 1373212 port 1. A separate
+references between pipe 1380064 port 0 and plumbing fixture 1373212 port 1. A separate
 committed reconnect restored them. The reported port origins matched their
 baseline and the measured separation was 0.082 mm. The query omits
 `connected_to` for a disconnected port, so readback treats the missing field
 as an empty peer list.
 
-Saved reopening remains pending. The `safe_write` profile declined the save
-call, and the isolated RVT still matched the original sample's checksum after
-the in-session test. A later filesystem check found the isolated RVT had
-the Windows read-only attribute. The attribute was cleared on the copy
-after Revit exited. Run the connector transaction again before testing
-save and reopen. No writes targeted the original sample.
+The `safe_write` profile declined the MCP save call. The isolated RVT
+also had the Windows read-only attribute. After clearing the attribute on
+the copy, the disconnect and reconnect both committed again. Revit's
+native Save wrote a new file checksum. After closing and reopening that
+file, an independent query verified the same owner IDs and connector IDs,
+reciprocal owner references and unchanged origins (0.082 mm separation).
+The original sample's checksum was unchanged. This verifies one existing
+pair through the save/reopen workflow. A persistence control that saves a
+topology different from the input remains untested.
 
 ## Saved IFC port and BCF fault controls
 
