@@ -22,7 +22,10 @@ as an empty peer list.
 
 Saved reopening remains pending. The `safe_write` profile declined the save
 call, and the isolated RVT still matched the original sample's checksum after
-the in-session test. No writes targeted the original sample.
+the in-session test. A later filesystem check found the isolated RVT had
+the Windows read-only attribute. The attribute was cleared on the copy
+after Revit exited. Run the connector transaction again before testing
+save and reopen. No writes targeted the original sample.
 
 ## Saved IFC port and BCF fault controls
 
