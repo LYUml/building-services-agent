@@ -8,8 +8,21 @@ the signatures of the installed server and Revit DLL. The Revit journal
 confirmed signed add-in startup and identified the isolated plumbing RVT
 being opened. The bridge reached Revit, but reported that a model-opening
 dialog with zero errors and 39 warnings prevented its health command from
-starting. Active-document verification, connector writes and saved reopening
-remain pending. The original model was outside the test write scope.
+starting. After the dialog was dismissed, the bridge verified the full active
+path of the isolated, non-workshared RVT on Revit 2027.3 (build 27.3.0.28)
+and inventoried 3,051 host pipes.
+
+A dry-run disconnect rolled back and a fresh query confirmed that both ends
+still referenced each other. A committed disconnect then removed the reciprocal
+references between pipe 1380064 port 0 and fitting 1373212 port 1. A separate
+committed reconnect restored them. The reported port origins matched their
+baseline and the measured separation was 0.082 mm. The query omits
+`connected_to` for a disconnected port, so readback treats the missing field
+as an empty peer list.
+
+Saved reopening remains pending. The `safe_write` profile declined the save
+call, and the isolated RVT still matched the original sample's checksum after
+the in-session test. No writes targeted the original sample.
 
 ## Saved IFC port and BCF fault controls
 
